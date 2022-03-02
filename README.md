@@ -1,2 +1,11 @@
 # CRUD Transat Jacques Vabre
 
+Membres : 
+
+-  RIKAB ELARBI
+
+-  FARIH MOUHSSINE
+
+-  FARIH HOUSSAM
+
+-  ILYASS ID ABDESLEM

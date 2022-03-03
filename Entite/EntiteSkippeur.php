@@ -1,9 +1,31 @@
 <?php
+
 namespace EntitesTransat;
+require_once "AbstractEntite.php";
+
 /**
  * Class EntiteSkippeur qui traite les infomrations des skippeurs
  */
-class EntiteSkippeur{
+class EntiteSkippeur extends AbstractEntite {
+
+    const TABLENAME = 'Skippeur';
+    static $COLNAMES = array(
+        'Skippeur_id',
+        'Skippeur_Nom',
+        'Skippeur_Prenom',
+        'Skipeur_DateNaissance',
+        'Skippeur_Sexe',
+    );
+    static $COLTYPES = array(
+        'number',
+        'text',
+        'text',
+        'date',
+        'text'
+    );
+    static $PK = array('Skippeur_id');
+    static $AUTOID = TRUE;
+    static $FK = array();
 
     protected $Skippeur_id;
     protected $Skippeur_Nom;
@@ -50,6 +72,23 @@ class EntiteSkippeur{
     public function getSkipeurDateNaissance()
     {
         return $this->Skipeur_DateNaissance;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function getPersistant(): bool
+    {
+        return $this->presistant;
+    }
+
+    /**
+     * @param bool $persistant
+     */
+    public function setPersistant(bool $persistant): void
+    {
+        $this->presistant = presistant;
     }
 
     /**

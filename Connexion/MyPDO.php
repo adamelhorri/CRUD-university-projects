@@ -47,15 +47,22 @@ class MyPDO{
      * @param $passeword
      * @param $nomTable
      */
-    public function __construct( $host, $db, $user ,$passeword, $nomTable){
+    public function __construct( $host, $db, $user ,$passeword){
         try {
             $this->pdo = new PDO("mysql:host=".$host.";dbname=".$db, $user, $passeword );
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->nomTable = $nomTable;
             echo "Connnexion Reussie";
         }catch (PDOException $e){
             echo "Connexion failed: " . $e->getMessage();
         }
+    }
+
+    /**
+     * @param string $nomTable
+     */
+    public function setNomTable(string $nomTable): void
+    {
+        $this->nomTable = $nomTable;
     }
 
 

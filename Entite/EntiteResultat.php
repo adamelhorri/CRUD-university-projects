@@ -6,6 +6,25 @@ namespace EntitesTransat ;
  */
 class EntiteResultat {
 
+    const TABLENAME = 'Resultat';
+    static $COLNAMES = array(
+        'Skippeur_id',
+        'Course_id',
+        'Duo_id',
+        'Classement',
+        'TempsCourse',
+    );
+    static $COLTYPES = array(
+        'number',
+        'number',
+        'number',
+        'number',
+        'text'
+    );
+    static $PK = array('Skippeur_id', 'Course_id' );
+    static $AUTOID = FALSE;
+    static $FK = array('Skippeur_id', 'Course_id');
+
     protected $Skipper_id;
     protected $Course_id;
     protected $Duo_id;

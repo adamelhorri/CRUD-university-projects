@@ -4,7 +4,22 @@ namespace EntitesTransat ;
 /**
  * Class EntiteCourse traite les infomrations des courses
  */
-class EntiteCourse{
+class EntiteCourse extends AbstractEntite {
+
+    const TABLENAME = 'Course';
+    static $COLNAMES = array(
+        'Course_id',
+        'Course_Edition',
+        'Course_Destination',
+    );
+    static $COLTYPES = array(
+        'number',
+        'text',
+        'text',
+    );
+    static $PK = array('Course_id');
+    static $AUTOID = TRUE;
+    static $FK = array();
 
     protected $Course_id;
     protected $Course_Edition;
@@ -58,6 +73,22 @@ class EntiteCourse{
         return $this->Course_id;
     }
 
+
+    /**
+     * @return bool
+     */
+    public function getPersistant(): bool
+    {
+        return $this->presistant;
+    }
+
+    /**
+     * @param bool $persistant
+     */
+    public function setPersistant(bool $persistant): void
+    {
+        $this->presistant = presistant;
+    }
 
     /**
      * @return string

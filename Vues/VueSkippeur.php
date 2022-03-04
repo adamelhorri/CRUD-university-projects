@@ -10,7 +10,7 @@ class VueSkippeur
      * @param EntiteSkippeur $skippeur
      * @return string
      */
-    public function getHTML4Skippeur(EntiteSkippeur $skippeur ) :string{
+    public function getHTML4Entity(EntiteSkippeur $skippeur ) :string{
         $res = "<table border='1'>
         <tr><th>Skippeur_id</th>
             <th>Skippeur_Nom</th>
@@ -29,13 +29,13 @@ class VueSkippeur
 
     /**
      * production d'une string contenant un formulaire HTML
-     * destiné à saisir une nouveau livre ou à modifier un skippeur existant
+     * destiné à saisir ou à modifier un skippeur existant
      * @param array $assoc
      * @return string
      */
-    public function getFormulaire4Skippeur(array $assoc): string
+    public function getForm4Entity(array $assoc, string $action): string
     {
-        $ch = "<form action='CrudSkippeur.php?' method='GET'>\n";
+        $ch = "<form action='?' method='GET'>\n";
         foreach ($assoc as $col => $val) {
             if (is_array($val)) {
                 $ch .= "$col : <input name='$col' type='".$val['type']
@@ -44,11 +44,12 @@ class VueSkippeur
             else
                 $ch .= "$col : <input type='$val' name='$col' />\n";
         }
-        $ch .= "<input type='submit' name='Valider' value='Sauver'/>\n";
+        $ch .= "<input type='submit' name='action' value='$action'/>\n";
 
 
         return $ch."</form>\n";
     }
+
 
 
     /**
@@ -57,7 +58,7 @@ class VueSkippeur
      * @param array $tabEntiteSkippeur
      * @return string
      */
-    public function getAllSkippeur(array $tabEntiteSkippeur): string
+    public function getAllEntities(array $tabEntiteSkippeur): string
     {
 
         $res = "<table border='1'>\n";
@@ -72,8 +73,8 @@ class VueSkippeur
                 $res.= "<td>".$skippeur->getSkippeurPrenom()."</td>";
                 $res.= "<td>".$skippeur->getSkipeurDateNaissance()."</td>";
                 $res.= "<td>".$skippeur->getSkippeurSexe()."</td>";
-                $res.= "<td>"."<a href='CrudSkippeur.php?action=update&Skippeur_id=".$skippeur->getSkippeurId()."'>Modifier</a>"."</td>";
-                $res.= "<td>"."<a href='CrudSkippeur.php?action=delete&Skippeur_id=".$skippeur->getSkippeurId()."'>Supprimer</a>"."</td>";
+                $res.= "<td>"."<a href='?action=update&Skippeur_id=".$skippeur->getSkippeurId()."'>Modifier</a>"."</td>";
+                $res.= "<td>"."<a href='?action=delete&Skippeur_id=".$skippeur->getSkippeurId()."'>Supprimer</a>"."</td>";
             }
             $res.= "</tr>";
         }

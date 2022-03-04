@@ -188,7 +188,7 @@ class MyPDO{
         $this->pdos_count = $this->pdo->prepare('SELECT COUNT(*) FROM '.$this->nomTable);
     }
 
-    public function getNbSkippeur() : int{
+    public function getnbEntite() : int{
         if (!isset($this->pdos_count)){
              $this->initPDOS_count();
         }

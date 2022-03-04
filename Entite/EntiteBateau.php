@@ -1,10 +1,30 @@
 <?php
-
 namespace EntitesTransat ;
+require_once "AbstractEntite.php";
+
 /**
  * Class EntiteBateau qui traite les infomrations relatives aux bateaux
  */
-class EntiteBateau{
+class EntiteBateau extends AbstractEntite {
+
+    const TABLENAME = 'Bateau';
+    static $COLNAMES = array(
+        'Bateau_id',
+        'Bateau_Nom',
+        'Bateau_Anne',
+        'Bateau_Longueur',
+        'Bateau_Type',
+    );
+    static $COLTYPES = array(
+        'number',
+        'text',
+        'number',
+        'float',
+        'text'
+    );
+    static $PK = array('Bateau_id');
+    static $AUTOID = TRUE;
+    static $FK = array();
 
     protected $Bateau_id;
     protected $Bateau_Nom;
@@ -12,6 +32,22 @@ class EntiteBateau{
     protected $Bateau_Longueur;
     protected $Bateau_Type;
 
+
+    /**
+     * @return bool
+     */
+    public function getPersistant(): bool
+    {
+        return $this->presistant;
+    }
+
+    /**
+     * @param bool $persistant
+     */
+    public function setPersistant(bool $persistant): void
+    {
+        $this->presistant = presistant;
+    }
 
     /**
      * @param int $Bateau_Anne

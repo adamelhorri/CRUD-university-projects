@@ -1,8 +1,22 @@
 <?php
 
 namespace EntitesTransat ;
+require_once "AbstractEntite.php";
 
-class EntiteConduit {
+class EntiteConduit extends AbstractEntite {
+
+    const TABLENAME = 'Course';
+    static $COLNAMES = array(
+        'Skipper_id',
+        'Bateau_id',
+    );
+    static $COLTYPES = array(
+        'number',
+        'number',
+    );
+    static $PK = array('Skipper_id',"Bateau_id" );
+    static $AUTOID = False;
+    static $FK = array('Skipper_id',"Bateau_id" );
 
     protected $Skipper_id;
     protected $Bateau_id;
@@ -23,6 +37,22 @@ class EntiteConduit {
     public function getBateauId() : int
     {
         return $this->Bateau_id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getPersistant(): bool
+    {
+        return $this->presistant;
+    }
+
+    /**
+     * @param bool $persistant
+     */
+    public function setPersistant(bool $persistant): void
+    {
+        $this->presistant = presistant;
     }
 
     /**

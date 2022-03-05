@@ -90,6 +90,23 @@ class EntiteCourse extends AbstractEntite {
         $this->presistant = presistant;
     }
 
+
+    /**
+     * renvoie un tableau associatif contient comme clé les noms des colonnes de la table
+     * et comme valeur leurs valeur
+     * @return array
+     */
+    public function getEntiteArray() : array{
+        $tab = array(
+            'Course_id' => $this->getCourseid(),
+            'Course_Edition' => $this->getCourseEdition(),
+            'Course_Destination' => $this->getCourseDestination(),
+
+        );
+        return  $tab;
+    }
+
+
     /**
      * @return string
      */

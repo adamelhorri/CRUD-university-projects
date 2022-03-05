@@ -128,6 +128,7 @@ class EntiteBateau extends AbstractEntite {
     {
         return $this->Bateau_Type;
     }
+
     /**
      * renvoie un tableau associatif contient comme clé les noms des colonnes de la table
      * et comme valeur leurs valeur
@@ -143,6 +144,10 @@ class EntiteBateau extends AbstractEntite {
         );
         return  $tab;
     }
+
+
+
+
 
     /**
      * @return string

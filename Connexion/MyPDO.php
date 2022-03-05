@@ -4,6 +4,8 @@ require_once "Entite/EntiteConduit.php";
 require_once "Entite/EntiteCourse.php";
 require_once "Entite/EntiteResultat.php";
 require_once "Entite/EntiteSkippeur.php";
+require_once "Metier/MetierConduit.php";
+require_once "Metier/MetierResultat.php";
 class MyPDO{
     /**
      * @var PDO
@@ -33,7 +35,6 @@ class MyPDO{
      * @var PDOStatement
      */
     private $pdos_count;
-
     /**
      * @var string
      */
@@ -126,12 +127,24 @@ class MyPDO{
      * @param array $assoc
      */
     public function update(string $id, array $assoc): void {
-        if (! isset($this->pdos_update))
-            $this->initPDOS_update($id, array_keys($assoc));
-        foreach ($assoc as $key => $value) {
-            $this->getPdosUpdate()->bindValue(":".$key, $value);
+        switch ($this->nomTable){
+            case "Resultat":
+                $leResultat = MetierResultat::initMetierResultat($assoc['Skipper_id'], $assoc['Course_id']);
+                $leResultat->setDuoId($assoc['Duo_id']);
+                $leResultat->setClassement($assoc['Classement']);
+                $leResultat->setTempsCourse($assoc['TempsCourse']);
+                $leResultat->save();
+                break;
+            default:
+                if (! isset($this->pdos_update))
+                    $this->initPDOS_update($id, array_keys($assoc));
+                foreach ($assoc as $key => $value) {
+                    $this->getPdosUpdate()->bindValue(":".$key, $value);
+                }
+                $this->getPdosUpdate()->execute();
+                break;
         }
-        $this->getPdosUpdate()->execute();
+
     }
 
 
@@ -152,12 +165,36 @@ class MyPDO{
      * @param array $assoc
      */
     public function insert(array $assoc): void {
-        if (! isset($this->pdos_insert))
-            $this->initPDOS_insert(array_keys($assoc));
-        foreach ($assoc as $key => $value) {
-            $this->getPdosInsert()->bindValue(":".$key, $value);
+        switch ($this->nomTable){
+            case "Conduit":
+                $skipper_id = $assoc['Skipper_id'];
+                $bateau_id = $assoc['Bateau_id'];
+                $metierConduit = new MetierConduit();
+                $metierConduit->setSkipperId($skipper_id);
+                $metierConduit->setBateauId($bateau_id);
+                $metierConduit->setNouveau(TRUE);
+                $metierConduit->save();
+                break;
+            case "Resultat" :
+                $metierResultat = new MetierResultat();
+                $metierResultat->setSkipperId($assoc['Skipper_id']);
+                $metierResultat->setCourseId($assoc['Course_id']);
+                $metierResultat->setDuoId($assoc['Duo_id']);
+                $metierResultat->setClassement($assoc['Classement']);
+                $metierResultat->setTempsCourse($assoc['TempsCourse']);
+                $metierResultat->setNouveau(TRUE);
+                $metierResultat->save();
+                break;
+            default:
+                if (! isset($this->pdos_insert))
+                    $this->initPDOS_insert(array_keys($assoc));
+                foreach ($assoc as $key => $value) {
+                    $this->getPdosInsert()->bindValue(":".$key, $value);
+                }
+                $this->getPdosInsert()->execute();
+                break;
         }
-        $this->getPdosInsert()->execute();
+
     }
 
     /**
@@ -172,12 +209,27 @@ class MyPDO{
      * @param array $assoc
      */
     public function delete(array $assoc) {
-        if (! isset($this->pdos_delete))
-            $this->initPDOS_delete(array_keys($assoc)[0]);
-        foreach ($assoc as $key => $value) {
-            $this->getPdosDelete()->bindValue(":".$key, $value);
+        switch ($this->nomTable){
+            case "Conduit":
+                $skipper_id = $assoc['Skippeur_id'];
+                $bateau_id = $assoc['Bateau_id'];
+                $metierConduit = MetierConduit::initMetierConduit($skipper_id,$bateau_id);
+                $metierConduit->delete();
+                break;
+            case "Resultat":
+                $metierResultat = MetierResultat::initMetierResultat($assoc['Skipper_id'],$assoc['Course_id'] );
+                $metierResultat->delete();
+                break;
+            default :
+                if (! isset($this->pdos_delete))
+                    $this->initPDOS_delete(array_keys($assoc)[0]);
+                foreach ($assoc as $key => $value) {
+                    $this->getPdosDelete()->bindValue(":".$key, $value);
+                }
+                $this->getPdosDelete()->execute();
+                break;
         }
-        $this->getPdosDelete()->execute();
+
     }
 
     /**

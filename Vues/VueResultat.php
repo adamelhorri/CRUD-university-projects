@@ -5,7 +5,7 @@ use EntitesTransat\EntiteResultat;
 class VueResultat{
 
     /**
-     * production d'un string contenant un tableau HTML représentant un Resultat d'une course
+     * production d'un string contenant un tableau HTML représentant un Resultat
      * @param EntiteResultat $resultat
      * @return string
      */
@@ -34,16 +34,16 @@ class VueResultat{
      */
     public function getForm4Entity(array $assoc, string $action): string
     {
-        $ch = "<form action='?' method='GET'>\n";
+        $ch = "<form class='box' action='?' method='GET'>\n";
         foreach ($assoc as $col => $val) {
             if (is_array($val)) {
-                $ch .= "$col : <input name='$col' type='".$val['type']
-                    ."' value='".$val['default']."' />\n";
+                $ch .= "$col : <div class='field'> <input class='input is-rounded' placeholder='$col'  name='$col' type='".$val['type']
+                    ."' value='".$val['default']."' />\n </div>";
             }
             else
-                $ch .= "$col : <input type='$val' name='$col' />\n";
+                $ch .= "$col : <div class='field'> <input  class='input is-rounded' placeholder='$col' type='$val' name='$col' />\n </div>";
         }
-        $ch .= "<input type='submit' name='action' value='$action'/>\n";
+        $ch .= "<input class='button is-info is-rounded' type='submit' name='action' value='$action'/>\n";
 
 
         return $ch."</form>\n";
@@ -60,24 +60,24 @@ class VueResultat{
     public function getAllEntities(array $tabEntiteResultat): string
     {
 
-        $res = "<table border='1'>\n";
+        $res = "<div class='columns is-centered'> <div class='column is-half'>  <table class='table is-striped is-hoverable is-fullwidth' border='1'>\n";
         $res.= "<tr>
-        <th>Skipper_id</th> <th>Course_id</th> <th>Duo_id</th> <th>Classement</th> <th>TempsCourse</th>
+        <th align='center'>Skipper_id</th> <th align='center'>Course_id</th> <th align='center'>Duo_id</th> <th align='center'>Classement</th> <th align='center'>TempsCourse</th><th></th><th></th>
         </tr>";
         foreach ($tabEntiteResultat as $resultat){
             $res .= "<tr>\n";
             if ($resultat instanceof EntiteResultat){
-                $res.= "<td>".$resultat->getSkipperId()."</td>";
-                $res.= "<td>".$resultat->getCourseId()."</td>";
-                $res.= "<td>".$resultat->getDuoId()."</td>";
-                $res.= "<td>".$resultat->getClassement()."</td>";
-                $res.= "<td>".$resultat->getTempsCourse()."</td>";
-                $res.= "<td>"."<a href='?action=update&Skipper_id=".$resultat->getSkipperId()."&Course_id=".$resultat->getCourseId()."'>Modifier</a>"."</td>";
-                $res.= "<td>"."<a href='?action=delete&Skipper_id=".$resultat->getSkipperId()."&Course_id=".$resultat->getCourseId()."'>Supprimer</a>"."</td>";
+                $res.= "<td align='center' >".$resultat->getSkipperId()."</td>";
+                $res.= "<td align='center' >".$resultat->getCourseId()."</td>";
+                $res.= "<td align='center' >".$resultat->getDuoId()."</td>";
+                $res.= "<td align='center' >".$resultat->getClassement()."</td>";
+                $res.= "<td align='center' >".$resultat->getTempsCourse()."</td>";
+                $res.= "<td align='center' >"."<a href='?action=update&Skipper_id=".$resultat->getSkipperId()."&Course_id=".$resultat->getCourseId()."'>Modifier</a>"."</td>";
+                $res.= "<td align='center' >"."<a href='?action=delete&Skipper_id=".$resultat->getSkipperId()."&Course_id=".$resultat->getCourseId()."'>Supprimer</a>"."</td>";
             }
             $res.= "</tr>";
         }
-        $res .= "</table>";
+        $res .= "</table> </div></div> ";
         return $res;
     }
 

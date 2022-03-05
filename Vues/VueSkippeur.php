@@ -35,16 +35,16 @@ class VueSkippeur
      */
     public function getForm4Entity(array $assoc, string $action): string
     {
-        $ch = "<form action='?' method='GET'>\n";
+        $ch = "<form class='box' action='?' method='GET'>\n";
         foreach ($assoc as $col => $val) {
             if (is_array($val)) {
-                $ch .= "$col : <input name='$col' type='".$val['type']
-                    ."' value='".$val['default']."' />\n";
+                $ch .= "$col : <div class='field'> <input class='input is-rounded' placeholder='$col' name='$col' type='".$val['type']
+                    ."' value='".$val['default']."' />\n </div>";
             }
             else
-                $ch .= "$col : <input type='$val' name='$col' />\n";
+                $ch .= "$col : <div class='field'> <input class='input is-rounded' placeholder='$col'  type='$val' name='$col' />\n </div>";
         }
-        $ch .= "<input type='submit' name='action' value='$action'/>\n";
+        $ch .= "<input class='button is-info is-rounded' type='submit' name='action' value='$action'/>\n";
 
 
         return $ch."</form>\n";
@@ -61,24 +61,24 @@ class VueSkippeur
     public function getAllEntities(array $tabEntiteSkippeur): string
     {
 
-        $res = "<table border='1'>\n";
+        $res = "<div class='columns is-centered'><div class='column is-half'><table class='table is-striped is-hoverable is-fullwidth' border='1'>\n";
         $res.= "<tr>
-        <th>Skippeur_id</th> <th>Skippeur_Nom</th> <th>Skippeur_Prenom</th> <th>Skipeur_DateNaissance</th> <th>Skippeur_Sexe</th>
+        <th>Skippeur_id</th> <th>Skippeur_Nom</th> <th>Skippeur_Prenom</th> <th>Skipeur_DateNaissance</th> <th>Skippeur_Sexe</th><th></th><th></th>
         </tr>";
         foreach ($tabEntiteSkippeur as $skippeur){
             $res .= "<tr>\n";
             if ($skippeur instanceof EntiteSkippeur){
-                $res.= "<td>".$skippeur->getSkippeurId()."</td>";
-                $res.= "<td>".$skippeur->getSkippeurNom()."</td>";
-                $res.= "<td>".$skippeur->getSkippeurPrenom()."</td>";
-                $res.= "<td>".$skippeur->getSkipeurDateNaissance()."</td>";
-                $res.= "<td>".$skippeur->getSkippeurSexe()."</td>";
-                $res.= "<td>"."<a href='?action=update&Skippeur_id=".$skippeur->getSkippeurId()."'>Modifier</a>"."</td>";
-                $res.= "<td>"."<a href='?action=delete&Skippeur_id=".$skippeur->getSkippeurId()."'>Supprimer</a>"."</td>";
+                $res.= "<td align='center' >".$skippeur->getSkippeurId()."</td>";
+                $res.= "<td align='center' >".$skippeur->getSkippeurNom()."</td>";
+                $res.= "<td align='center' >".$skippeur->getSkippeurPrenom()."</td>";
+                $res.= "<td align='center' >".$skippeur->getSkipeurDateNaissance()."</td>";
+                $res.= "<td align='center' >".$skippeur->getSkippeurSexe()."</td>";
+                $res.= "<td align='center' >"."<a href='?action=update&Skippeur_id=".$skippeur->getSkippeurId()."'>Modifier</a>"."</td>";
+                $res.= "<td align='center' >"."<a href='?action=delete&Skippeur_id=".$skippeur->getSkippeurId()."'>Supprimer</a>"."</td>";
             }
             $res.= "</tr>";
         }
-        $res .= "</table>";
+        $res .= "</table></div></div>";
         return $res;
     }
 

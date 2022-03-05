@@ -129,6 +129,25 @@ class EntiteBateau extends AbstractEntite {
         return $this->Bateau_Type;
     }
 
+    /**
+     * renvoie un tableau associatif contient comme clé les noms des colonnes de la table
+     * et comme valeur leurs valeur
+     * @return array
+     */
+    public function getEntiteArray() : array{
+        $tab = array(
+            'Bateau_id' => $this->getBateauId(),
+            'Bateau_Nom' => $this->getBateauNom(),
+            'Bateau_Anne' => $this->getBateauAnne(),
+            'Bateau_Longueur' => $this->getBateauLongueur(),
+            'Bateau_Type' => $this->getBateauType(),
+        );
+        return  $tab;
+    }
+
+
+
+
 
     /**
      * @return string

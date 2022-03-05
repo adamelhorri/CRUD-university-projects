@@ -8,7 +8,7 @@ class EntiteResultat {
 
     const TABLENAME = 'Resultat';
     static $COLNAMES = array(
-        'Skippeur_id',
+        'Skipper_id',
         'Course_id',
         'Duo_id',
         'Classement',
@@ -21,9 +21,9 @@ class EntiteResultat {
         'number',
         'text'
     );
-    static $PK = array('Skippeur_id', 'Course_id' );
+    static $PK = array('Skipper_id', 'Course_id' );
     static $AUTOID = FALSE;
-    static $FK = array('Skippeur_id', 'Course_id');
+    static $FK = array('Skipper_id', 'Course_id');
 
     protected $Skipper_id;
     protected $Course_id;
@@ -112,6 +112,22 @@ class EntiteResultat {
         $this->TempsCourse = $TempsCourse;
     }
 
+
+    /**
+     * renvoie un tableau associatif contient comme clé les noms des colonnes de la table
+     * et comme valeur leurs valeur
+     * @return array
+     */
+    public function getEntiteArray() : array{
+        $tab = array(
+            'Skipper_id' => $this->getSkipperId(),
+            'Course_id' => $this->getCourseId(),
+            'Duo_id' => $this->getDuoId(),
+            'Classement' => $this->getClassement(),
+            'TempsCourse' => $this->getTempsCourse(),
+        );
+        return  $tab;
+    }
 
     public function __toString(){
         $resultat = "EntiteResultat { ";

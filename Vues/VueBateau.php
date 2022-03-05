@@ -42,6 +42,7 @@ class VueBateau
                     ."' value='".$val['default']."' />\n";
             }
             else
+
                 $ch .= "$col : <input type='$val' name='$col' />\n";
         }
         $ch .= "<input type='submit' name='action' value='$action'/>\n";

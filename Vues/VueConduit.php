@@ -63,8 +63,7 @@ class VueConduit{
             if ($conduit instanceof EntiteConduit){
                 $res.= "<td>".$conduit->getSkippeurId()."</td>";
                 $res.= "<td>".$conduit->getBateauId()."</td>";
-                $res.= "<td>"."<a href='?action=update&Skippeur_id=".$conduit->getSkippeurId().".Bateau_id=".$conduit->getBateauId()."'>Modifier</a>"."</td>";
-                $res.= "<td>"."<a href='?action=delete&Skippeur_id=".$conduit->getSkippeurId().".Bateau_id=".$conduit->getBateauId()."'>Supprimer</a>"."</td>";
+                $res.= "<td>"."<a href='?action=delete&Skippeur_id=".$conduit->getSkippeurId()."&Bateau_id=".$conduit->getBateauId()."'>Supprimer</a>"."</td>";
             }
             $res.= "</tr>";
         }

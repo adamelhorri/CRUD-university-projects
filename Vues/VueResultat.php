@@ -11,7 +11,7 @@ class VueResultat{
      */
     public function getHTML4Entity(EntiteResultat $resultat ) :string{
         $res = "<table border='1'>
-        <tr><th>Skippeur_id</th>
+        <tr><th>Skipper_id</th>
             <th>Course_id</th>
             <th>Duo_id</th>
             <th>Classement</th>
@@ -62,7 +62,7 @@ class VueResultat{
 
         $res = "<table border='1'>\n";
         $res.= "<tr>
-        <th>Skippeur_id</th> <th>Course_id</th> <th>Duo_id</th> <th>Classement</th> <th>TempsCourse</th>
+        <th>Skipper_id</th> <th>Course_id</th> <th>Duo_id</th> <th>Classement</th> <th>TempsCourse</th>
         </tr>";
         foreach ($tabEntiteResultat as $resultat){
             $res .= "<tr>\n";
@@ -72,8 +72,8 @@ class VueResultat{
                 $res.= "<td>".$resultat->getDuoId()."</td>";
                 $res.= "<td>".$resultat->getClassement()."</td>";
                 $res.= "<td>".$resultat->getTempsCourse()."</td>";
-                $res.= "<td>"."<a href='?action=update&Skippeur_id=".$resultat->getSkipperId().".Course_id=".$resultat->getCourseId()."'>Modifier</a>"."</td>";
-                $res.= "<td>"."<a href='?action=delete&Skippeur_id=".$resultat->getSkipperId().".Course_id=".$resultat->getCourseId()."'>Supprimer</a>"."</td>";
+                $res.= "<td>"."<a href='?action=update&Skipper_id=".$resultat->getSkipperId()."&Course_id=".$resultat->getCourseId()."'>Modifier</a>"."</td>";
+                $res.= "<td>"."<a href='?action=delete&Skipper_id=".$resultat->getSkipperId()."&Course_id=".$resultat->getCourseId()."'>Supprimer</a>"."</td>";
             }
             $res.= "</tr>";
         }

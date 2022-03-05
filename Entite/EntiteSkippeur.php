@@ -35,6 +35,22 @@ class EntiteSkippeur extends AbstractEntite {
 
 
     /**
+     * renvoie un tableau associatif contient comme clé les noms des colonnes de la table
+     * et comme valeur leurs valeur
+     * @return array
+     */
+    public function getEntiteArray() : array{
+        $tab = array(
+            'Skippeur_id' => $this->getSkippeurId(),
+            'Skippeur_Nom' => $this->getSkippeurNom(),
+            'Skippeur_Prenom' => $this->getSkippeurPrenom(),
+            'Skipeur_DateNaissance' => $this->getSkipeurDateNaissance(),
+            'Skippeur_Sexe' => $this->getSkippeurSexe(),
+        );
+        return  $tab;
+    }
+
+    /**
      * @return int
      */
     public function getSkippeurId() : int

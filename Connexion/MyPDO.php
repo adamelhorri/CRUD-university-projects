@@ -52,7 +52,6 @@ class MyPDO{
         try {
             $this->pdo = new PDO("mysql:host=".$host.";dbname=".$db, $user, $passeword );
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connnexion Reussie";
         }catch (PDOException $e){
             echo "Connexion failed: " . $e->getMessage();
         }

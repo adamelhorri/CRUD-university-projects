@@ -35,17 +35,17 @@ class VueBateau
      */
     public function getForm4Entity(array $assoc, string $action ): string
     {
-        $ch = "<form action='?' method='GET'>\n";
+        $ch = "<form class='box' action='?' method='GET'>\n";
         foreach ($assoc as $col => $val) {
             if (is_array($val)) {
-                $ch .= "$col : <input name='$col' type='".$val['type']
-                    ."' value='".$val['default']."' />\n";
+                $ch .= "$col : <div class='field'> <input name='$col' class='input is-rounded' placeholder='$col' type='".$val['type']
+                    ."' value='".$val['default']."' />\n </div>";
             }
             else
 
-                $ch .= "$col : <input type='$val' name='$col' />\n";
+                $ch .= "$col :<div class='field'> <input class='input is-rounded' placeholder='$col'  type='$val' name='$col' />\n </div>";
         }
-        $ch .= "<input type='submit' name='action' value='$action'/>\n";
+        $ch .= "<input class='button is-info is-rounded' type='submit' name='action' value='$action'/>\n";
 
 
         return $ch."</form>\n";
@@ -61,24 +61,24 @@ class VueBateau
     public function getAllEntities(array $tabEntiteBateau): string
     {
 
-        $res = "<table border='1'>\n";
+        $res = "<div class='columns is-centered'><div class='column is-half'> <table class='table is-striped is-hoverable is-fullwidth'  border='1'>\n";
         $res.= "<tr>
-        <th>Bateau_id</th> <th>Bateau_Nom</th> <th>Bateau_Anne</th> <th>Bateau_Longueur</th> <th>Bateau_Type</th>
+        <th>Bateau_id</th> <th>Bateau_Nom</th> <th>Bateau_Anne</th> <th>Bateau_Longueur</th> <th>Bateau_Type</th> <th></th> <th></th> 
         </tr>";
         foreach ($tabEntiteBateau as $bateau){
             $res .= "<tr>\n";
             if ($bateau instanceof EntiteBateau){
-                $res.= "<td>".$bateau->getBateauId()."</td>";
-                $res.= "<td>".$bateau->getBateauNom()."</td>";
-                $res.= "<td>".$bateau->getBateauAnne()."</td>";
-                $res.= "<td>".$bateau->getBateauLongueur()."</td>";
-                $res.= "<td>".$bateau->getBateauType()."</td>";
-                $res.= "<td>"."<a href='?action=update&Bateau_id=".$bateau->getBateauId()."'>Modifier</a>"."</td>";
-                $res.= "<td>"."<a href='?action=delete&Bateau_id=".$bateau->getBateauId()."'>Supprimer</a>"."</td>";
+                $res.= "<td align='center'>".$bateau->getBateauId()."</td>";
+                $res.= "<td align='center'>".$bateau->getBateauNom()."</td>";
+                $res.= "<td align='center' >".$bateau->getBateauAnne()."</td>";
+                $res.= "<td align='center' >".$bateau->getBateauLongueur()."</td>";
+                $res.= "<td align='center' >".$bateau->getBateauType()."</td>";
+                $res.= "<td align='center' >"."<a href='?action=update&Bateau_id=".$bateau->getBateauId()."'>Modifier</a>"."</td>";
+                $res.= "<td align='center' >"."<a href='?action=delete&Bateau_id=".$bateau->getBateauId()."'>Supprimer</a>"."</td>";
             }
             $res.= "</tr>";
         }
-        $res .= "</table>";
+        $res .= "</table></div></div>";
         return $res;
     }
 }

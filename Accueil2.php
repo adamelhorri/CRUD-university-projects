@@ -15,7 +15,8 @@ function getDebutHTML(): string
 <html lang=\"fr\">
 <head>
   <meta charset=\"utf-8\">
-  <title>appli crud</title>
+  <title>CRUD PHP</title>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'>
     <!--  <link rel=\"stylesheet\" href=\"style.css\"> -->
     <!--  <script src=\"script.js\"></script> -->
 </head>
@@ -23,29 +24,60 @@ function getDebutHTML(): string
 ";
 }
 
+function getMenu() : string {
+    $resultat = "<div class='columns' style='background-color: #003976;'>
+          <div class='column is-one-fifth'>
+              <img src='https://www.studea-univ-lehavre.fr/resources/lea/logo_universite_le_havre-blanc.png' alt='Website Logo' style='max-height: 120px;'>
+          </div>
+          <div class='column'>
+                <p class='title center has-text-white'> Transat Jaques Vabre 2022</p>
+                <p class='subtitle has-text-light'>Réalisation d'un site CRUD</p>
+          </div>
+      </div>";
+    return $resultat;
+}
 
 function getFinHTML(): string
 {
     return "<!-- contenu -->
+<footer class='footer'>
+  <div class='content has-text-centered'>
+    <p>
+      © 2022 All rights reserved
+    </p>
+  </div>
+</footer>
 </body>
 </html>
 ";
 }
 
+function getContent(): string{
+    return "<img src='https://www.transatjacquesvabre.org/public/images/web1/edition/carte.jpg' alt='Course'></div></div>
+          ";
+}
+
+
+
 function getSelectionTable() : string {
-    $resultat = "<form action='Accueil2.php' method='get'>\n";
-    $resultat .= "<select size='1' name='table_name'>\n
+    $resultat = "<div class='columns is-centered'><div class='column is-half'>
+                    <h1 class='title'>Accueil</h1> 
+                    <form class='box' action='Accueil2.php' method='get'>\n";
+    $resultat .= "<label class='label'>Choisissez La Table:</label>
+            <div class='select is-info' >
+           <select name='table_name'>\n
             <option value='Skippeur'>Skippeur</option>
             <option value='Bateau'>Bateau</option>
             <option value='Course'>Course</option>
             <option value='Resultat'>Resultat</option>
             <option value='Conduit'>Conduit</option>
-            
-     </select>\n";
-    $resultat .= "<input type='submit' name='action' value='SelectionnerTable' />";
+            </select>
+            </div>\n";
+    $resultat .= " <input class='button is-info' type='submit' name='action' value='SelectionnerTable'/>";
     $resultat .= "</form>";
     return $resultat;
 }
+
 
 session_start();
 $contenu = "";
@@ -187,14 +219,26 @@ switch ($_GET['action']){
 switch ($_SESSION['etat']){
     case 'Accueil':
         $contenu.= getSelectionTable();
+        $contenu.= getContent();
         break;
     case 'afficheTable':
         $classeVue = new ReflectionClass("Vue".ucfirst($_SESSION['table_name']));
         $vue  = $classeVue->newInstance();
-        $contenu .="<p><a href='?action=create'>Créer ". $_SESSION['table_name'];
-        $contenu .= "</a> </p>";
+        $contenu .="<div class='columns'>
+            <div class='column'></div>
+            <div class='column'>
+                <nav class='breadcrumb' aria-label='breadcrumbs'>
+                    <ul>
+                        <li><a href='Accueil2.php?action=initialiser'>Accueil</a></li>
+                        <li>".$_SESSION['table_name']."</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class='column'></div>
+            <div class='column'> <a href='?action=create'><button class='button is-link is-light'>Inserer</button></a></div></div>
+            ";
+        //$contenu .= "<a href='Accueil2.php?action=initialiser'>Home</a><p><a href='?action=create'>Ajouter un skippeur</a>";
         $contenu.= $vue->getAllEntities($myPDO->getAll());
-        $contenu .= "<a href='Accueil2.php?action=initialiser'>Accueil</a>";
         break;
     case 'creation' :
 
@@ -202,5 +246,6 @@ switch ($_SESSION['etat']){
 }
 
 echo getDebutHTML();
+echo getMenu();
 echo $contenu ;
 echo getFinHTML();

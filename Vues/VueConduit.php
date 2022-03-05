@@ -29,16 +29,16 @@ class VueConduit{
      */
     public function getForm4Entity(array $assoc, string $action ): string
     {
-        $ch = "<form action='?' method='GET'>\n";
+        $ch = "<form class='box' action='?' method='GET'>\n";
         foreach ($assoc as $col => $val) {
             if (is_array($val)) {
-                $ch .= "$col : <input name='$col' type='".$val['type']
-                    ."' value='".$val['default']."' />\n";
+                $ch .= "$col : <div class='field'> <input class='input is-rounded' placeholder='$col' name='$col' type='".$val['type']
+                    ."' value='".$val['default']."' />\n </div>";
             }
             else
-                $ch .= "$col : <input type='$val' name='$col' />\n";
+                $ch .= "$col : <div class='field'>  <input class='input is-rounded' placeholder='$col' type='$val' name='$col' />\n </div>";
         }
-        $ch .= "<input type='submit' name='action' value='$action'/>\n";
+        $ch .= "<input class='button is-info is-rounded' type='submit' name='action' value='$action'/>\n";
 
 
         return $ch."</form>\n";
@@ -54,16 +54,16 @@ class VueConduit{
     public function getAllEntities(array $tabEntiteConduit): string
     {
 
-        $res = "<table border='1'>\n";
+        $res = "<div class='columns is-centered'><div class='column is-half'> <table  class='table is-striped is-hoverable is-fullwidth' border='1'>\n";
         $res.= "<tr>
-       <th>Skipper_id</th> <th>Bateau_id</th> 
+       <th align='center'>Skipper_id</th> <th align='center'>Bateau_id</th> <th></th> 
         </tr>";
         foreach ($tabEntiteConduit as $conduit){
             $res .= "<tr>\n";
             if ($conduit instanceof EntiteConduit){
-                $res.= "<td>".$conduit->getSkippeurId()."</td>";
-                $res.= "<td>".$conduit->getBateauId()."</td>";
-                $res.= "<td>"."<a href='?action=delete&Skippeur_id=".$conduit->getSkippeurId()."&Bateau_id=".$conduit->getBateauId()."'>Supprimer</a>"."</td>";
+                $res.= "<td align='center' >".$conduit->getSkippeurId()."</td>";
+                $res.= "<td align='center' >".$conduit->getBateauId()."</td>";
+                $res.= "<td align='center' >"."<a href='?action=delete&Skippeur_id=".$conduit->getSkippeurId()."&Bateau_id=".$conduit->getBateauId()."'>Supprimer</a>"."</td>";
             }
             $res.= "</tr>";
         }

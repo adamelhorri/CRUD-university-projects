@@ -1,7 +1,7 @@
 <?php
 namespace crudP08\Vues;
 
-require_once("AbstractEntite.php");
+require_once("../Entites/AbstractEntite.php");
 
 use crudP08\Entites\AbstractEntite;
 

@@ -1,8 +1,8 @@
 <?php
 namespace crudP08\Vues;
 
-require_once("EntiteP08_Genres");
-require_once("AbstractEntite");
+require_once("../Entites/EntiteP08_Genres.php");
+require_once("../Entites/AbstractEntite.php");
 
 use crudP08\Entites\AbstractEntite;
 use crudP08\Entites\EntiteP08_Genres;

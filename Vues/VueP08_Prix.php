@@ -1,9 +1,13 @@
 <?php
+namespace crudP08\Vues;
 
-require_once("../Entite/EntitePrix");
-require_once("../Entite/AbstractEntite");
+require_once("EntiteP08_Prix");
+require_once("AbstractEntite");
 
-class VuePrix extends VueEntite
+use crudP08\Entites\AbstractEntite;
+use crudP08\Entites\EntiteP08_Prix;
+
+class VueP08_Prix extends VueEntite
 {
 
     /**
@@ -14,7 +18,7 @@ class VuePrix extends VueEntite
      */
     public function getHTML4Entity(AbstractEntite $entite = null): string
     {
-        if ($entite instanceof EntitePrix) {
+        if ($entite instanceof EntiteP08_Prix) {
             $ch = "<table width='700'>
               <tr>
                 <th>Id : </th>
@@ -30,7 +34,7 @@ class VuePrix extends VueEntite
               </tr> \n";
             return $ch;
         } else
-            exit("Le paramètre d'entrée n'est pas une instance de EntitePrix");
+            exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Prix");
     }
 
     /**
@@ -51,7 +55,7 @@ class VuePrix extends VueEntite
         $ch .= '<p><a href="action.php?action=creerEntite">Créer un nouveau prix</a></p>';
         $ch .= '<ul>';
         foreach ($tabEntities as $prix) {
-            if ($prix instanceof EntitePrix) {
+            if ($prix instanceof EntiteP08_Prix) {
                 $ch .= '<li>' . $prix->getIdPrix() . ' ';
                 $ch .= $prix->getNomPrix() . ' ';
                 $ch .= $prix->getCategoriePrix() . ' ';
@@ -79,7 +83,7 @@ class VuePrix extends VueEntite
             $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
             return $ch . '</form>';
         }
-        if ($entite instanceof EntitePrix) {
+        if ($entite instanceof EntiteP08_Prix) {
             $ch = '<form action="action.php" method="GET">';
             $ch .= "Id <input type='number' name='idPrix' value='" . $entite->getIdPrix() . "'><br>";
             $ch .= "Nom <input type='text' name='nomPrix' value='" . htmlspecialchars($entite->getNomPrix()) . "'><br>";
@@ -87,7 +91,7 @@ class VuePrix extends VueEntite
             $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
             return $ch . '</form>';
         } else
-            exit("Le paramètre d'entrée n'est pas une instance de EntitePrix");
+            exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Prix");
     }
 }
 

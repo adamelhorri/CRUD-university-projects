@@ -19,17 +19,17 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2LyNjjPd3yTqNm1q1eushwvCuu5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
+    "last_opened_file_path": "C:/Users/el horri/Desktop/php-crud",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -42,10 +42,24 @@
       <option name="presentableId" value="Default" />
       <updated>1676839500474</updated>
       <workItem from="1676839505504" duration="271000" />
+      <workItem from="1676926490094" duration="1238000" />
+      <workItem from="1678114669780" duration="2690000" />
+      <workItem from="1678198091768" duration="70000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

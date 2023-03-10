@@ -1,8 +1,9 @@
 <?php
+namespace crudP08\Entites;
 
-class EntiteSerie extends AbstractEntite
+class EntiteP08_Series extends AbstractEntite
 {
-  const TABLENAME = 'p08_series';
+  const TABLENAME = 'P08_Series';
   static $COLNAMES = array('idSerie', 'nomSerie', 'langueSerie', 'debutSerie', 'finSerie', 'siteOfficiel', 'noteSerie', 'imageSerie', 'descriptionSerie', 'spinoff');
   static $COLTYPES = array('number', 'text', 'text', 'date', 'date', 'text', 'number', 'text', 'text', 'number');
   static $PK = array('idSerie');
@@ -242,7 +243,7 @@ class EntiteSerie extends AbstractEntite
 
   public function __toString(): string
   {
-    return "object:EntiteSerie (" . $this->idSerie . ", " . $this->nomSerie . ", " . $this->langueSerie . ", " . $this->debutSerie . ", " . $this->finSerie . ", " . $this->siteOfficiel . ", " . $this->noteSerie . ", " . $this->imageSerie . ", " . $this->descriptionSerie . ", " . $this->spinoff . ")";
+    return "object:EntiteP08_Series (" . $this->idSerie . ", " . $this->nomSerie . ", " . $this->langueSerie . ", " . $this->debutSerie . ", " . $this->finSerie . ", " . $this->siteOfficiel . ", " . $this->noteSerie . ", " . $this->imageSerie . ", " . $this->descriptionSerie . ", " . $this->spinoff . ")";
   }
 }
 

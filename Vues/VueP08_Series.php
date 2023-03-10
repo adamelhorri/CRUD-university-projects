@@ -1,9 +1,13 @@
 <?php
+namespace crudP08\Vues;
 
-require_once("../Entite/EntiteSerie");
-require_once("../Entite/AbstractEntite");
+require_once("EntiteP08_Series");
+require_once("AbstractEntite");
 
-class VueSerie extends VueEntite
+use crudP08\Entites\AbstractEntite;
+use crudP08\Entites\EntiteP08_Series;
+
+class VueP08_Series extends VueEntite
 {
 
   /**
@@ -14,7 +18,7 @@ class VueSerie extends VueEntite
    */
   public function getHTML4Entity(AbstractEntite $entite = null): string
   {
-    if ($entite instanceof EntiteSerie) {
+    if ($entite instanceof EntiteP08_Series) {
       $ch = "<table width='700'>
               <tr>
                 <img src='" . $entite->getImageSerie() . "' alt='Poster de la série' width='350'>
@@ -57,7 +61,7 @@ class VueSerie extends VueEntite
               </tr>\n";
       return $ch;
     } else
-      exit("Le paramètre d'entrée n'est pas une instance de EntiteSerie");
+      exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Series");
   }
 
   /**
@@ -78,7 +82,7 @@ class VueSerie extends VueEntite
     $ch .= '<p><a href="action.php?action=creerEntite">Créer une nouvelle série</a></p>';
     $ch .= '<ul>';
     foreach ($tabEntities as $serie) {
-      if ($serie instanceof EntiteSerie) {
+      if ($serie instanceof EntiteP08_Series) {
         $ch .= '<li>' . $serie->getIdSerie() . ' ';
         $ch .= $serie->getNomSerie() . ' ';
         $ch .= $serie->getDebutSerie() . ' ';
@@ -114,21 +118,21 @@ class VueSerie extends VueEntite
       $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
       return $ch . '</form>';
   }
-  if ($entite instanceof EntiteSerie) {
+  if ($entite instanceof EntiteP08_Series) {
       $ch = '<form action="action.php" method="GET">';
       $ch .= "Id <input type='number' name='idSerie' value='" . $entite->getIdSerie() . "'><br>";
       $ch .= "Nom <input type='text' name='nomSerie' value='" . htmlspecialchars($entite->getNomSerie()) . "'><br>";
       $ch .= "Langue <input type='text' name='langueSerie' value='" . htmlspecialchars($entite->getLangueSerie()) . "'><br>";
       $ch .= "Date du début <input type='date' name='debutSerie' valeur='" . $entite->getDebutSerie() . "'><br>";
-      $ch .= "Date de la fin <input type='date' name='finSerie' valeur='" . $entite->getFinSerie() != null ? $entite->getFinSerie() : "" . "'><br>";
+      $ch .= "Date de la fin <input type='date' name='finSerie' valeur='" . $entite->getFinSerie() != null ? $entite->getFinSerie() : '' . "'><br>";
       $ch .= "Site Officiel <input type='text' name='siteOfficiel' valeur='" . htmlspecialchars($entite->getSiteOfficiel()) . "'><br>";
       $ch .= "Note <input type='number' name='noteSerie' valeur='" . $entite->getNoteSerie() . "'><br>";
       $ch .= "Description <textarea name='descriptionSerie'>" . htmlspecialchars($entite->getDescriptionSerie()) . "</textarea><br>";
-      $ch .= "Spinoff <input type='' name='spinoff' valeur='" . $entite->getSpinoff() != null ? $entite->getSpinoff() : "" . "'><br>";
+      $ch .= "Spinoff <input type='' name='spinoff' valeur='" . $entite->getSpinoff() != null ? $entite->getSpinoff() : '' . "'><br>";
       $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
       return $ch . '</form>';
   } else
-      exit("Le paramètre d'entrée n'est pas une instance de EntiteSerie");
+      exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Series");
   }
 }
 

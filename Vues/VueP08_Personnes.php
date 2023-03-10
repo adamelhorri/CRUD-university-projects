@@ -1,14 +1,18 @@
 <?php
+namespace crudP08\Vues;
 
-require_once("../Entite/EntitePersonne");
-require_once("../Entite/AbstractEntite");
+require_once("EntiteP08_Personnes");
+require_once("AbstractEntite");
 
-class VuePersonne extends VueEntite
+use crudP08\Entites\AbstractEntite;
+use crudP08\Entites\EntiteP08_Personnes;
+
+class VueP08_Personnes extends VueEntite
 {
     
     public function getHTML4Entity(AbstractEntite $entite = null): string
     {
-        if ($entite instanceof EntitePersonne) {
+        if ($entite instanceof EntiteP08_Personnes) {
             $ch = "<table width='700'>
               <tr>
                 <img src='" . $entite->getImagePersonne() . "' alt='Image de la personne' width='350'>
@@ -43,7 +47,7 @@ class VuePersonne extends VueEntite
               </tr>\n";
             return $ch;
         } else
-            exit("Le paramètre d'entrée n'est pas une instance de EntitePersonne");
+            exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Personnes");
     }
 
 
@@ -59,7 +63,7 @@ class VuePersonne extends VueEntite
         $ch .= '<p><a href="action.php?action=creerEntite">Ajouter une nouvelle personne</a></p>';
         $ch .= '<ul>';
         foreach ($tabEntities as $personne) {
-            if ($personne instanceof EntitePersonne) {
+            if ($personne instanceof EntiteP08_Personnes) {
                 $ch .= '<li>' . $personne->getIdPersonne() . ' ';
                 $ch .= $personne->getNomPersonne() . ' ';
                 $ch .= $personne->getGenrePersonne() . ' ';
@@ -87,7 +91,7 @@ class VuePersonne extends VueEntite
             $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
             return $ch . '</form>';
         }
-        if ($entite instanceof EntitePersonne) {
+        if ($entite instanceof EntiteP08_Personnes) {
             $ch = '<form action="action.php" method="GET">';
             $ch .= "Id <input type='number' name='idPersonne' value='" . $entite->getIdPersonne() . "'><br>";
             $ch .= "Nom <input type='text' name='nomPersonne' value='" . htmlspecialchars($entite->getNomPersonne()) . "'><br>";
@@ -99,6 +103,6 @@ class VuePersonne extends VueEntite
             $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
             return $ch . '</form>';
         } else
-            exit("Le paramètre d'entrée n'est pas une instance de EntitePersonne");
+            exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Personnes");
     }
 }

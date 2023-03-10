@@ -1,4 +1,9 @@
 <?php
+namespace crudP08\Vues;
+
+require_once("AbstractEntite.php");
+
+use crudP08\Entites\AbstractEntite;
 
 abstract class VueEntite extends AbstractVueRelation
 {
@@ -9,7 +14,7 @@ abstract class VueEntite extends AbstractVueRelation
    * @return string
    */
   public abstract function getHTML4Entity(AbstractEntite $entite = null): string;
-    
+
   /**
    * getAllEntities
    *
@@ -17,7 +22,7 @@ abstract class VueEntite extends AbstractVueRelation
    * @return string
    */
   public abstract function getAllEntities(array $tabEntities): string;
-  
+
   /**
    * getForme4Entity
    *

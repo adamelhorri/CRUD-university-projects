@@ -1,8 +1,9 @@
 <?php 
+namespace crudP08\Entites;
 
-class EntiteGenre extends AbstractEntite
+class EntiteP08_Genres extends AbstractEntite
 {
-  const TABLENAME = 'p08_genres';
+  const TABLENAME = 'P08_Genres';
   static $COLNAMES = array('idGenre', 'libelleGenre');
   static $COLTYPES = array('number', 'text');
   static $PK = array('idGenre');
@@ -57,7 +58,7 @@ class EntiteGenre extends AbstractEntite
 
   public function __toString(): string
   {
-    return "object:EntiteGenre (" . $this->idGenre . ", " . $this->libelleGenre . ")";
+    return "object:EntiteP08_Genres (" . $this->idGenre . ", " . $this->libelleGenre . ")";
   }
 }
 

@@ -1,14 +1,15 @@
 <?php
+namespace crudP08\Vues;
 
 class AbstractVueRelation
 {
-    /**
-     *
-     * @return string
-     */
-    public function getDebutHTML(): string
-    {
-        return "<!DOCTYPE html>
+  /**
+   *
+   * @return string
+   */
+  public function getDebutHTML(): string
+  {
+    return "<!DOCTYPE html>
         <html lang='fr'>
 <head>
 <meta charset='UTF-8'>
@@ -17,18 +18,19 @@ class AbstractVueRelation
 <link rel='stylesheet' href='global.css' />
 </head>
 <body> ";
-    }
+  }
 
-    /**
-     *
-     * @return string
-     */
-    public function getFintHTML(): string
-    {
-        return "
+  /**
+   *
+   * @return string
+   */
+  public function getFintHTML(): string
+  {
+    return "
 </body>
-</html>\n";;
-    }
+</html>\n";
+    ;
+  }
 
 }
 

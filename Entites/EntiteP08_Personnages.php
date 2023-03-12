@@ -1,5 +1,5 @@
 <?php
-namespace crudP08\Entites;
+namespace Entites;
 
 class EntiteP08_Personnages extends AbstractEntite
 {

@@ -1,9 +1,9 @@
 <?php
-namespace crudP08\Vues;
+namespace Vues;
 
 require_once("../Entites/AbstractEntite.php");
 
-use crudP08\Entites\AbstractEntite;
+use Entites\AbstractEntite;
 
 abstract class VueEntite extends AbstractVueRelation
 {

@@ -1,5 +1,5 @@
 <?php
-namespace crudP08\Vues;
+namespace Vues;
 
 class AbstractVueRelation
 {

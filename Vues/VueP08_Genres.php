@@ -1,11 +1,11 @@
 <?php
-namespace crudP08\Vues;
+namespace Vues;
 
 require_once("../Entites/EntiteP08_Genres.php");
 require_once("../Entites/AbstractEntite.php");
 
-use crudP08\Entites\AbstractEntite;
-use crudP08\Entites\EntiteP08_Genres;
+use Entites\AbstractEntite;
+use Entites\EntiteP08_Genres;
 
 class VueP08_Genres extends VueEntite
 {
@@ -19,6 +19,7 @@ class VueP08_Genres extends VueEntite
   public function getHTML4Entity(AbstractEntite $entite = null): string
   {
     if ($entite instanceof EntiteP08_Genres) {
+      $ch .= getDebutHTML();
       $ch = "<table width='700'>
               <tr>
                 <th>Id : </th>
@@ -29,6 +30,7 @@ class VueP08_Genres extends VueEntite
                 <td>" . $entite->getLibelleGenre() . "</td>
               </tr>
               \n";
+      $ch .= getFinHTML();
       return $ch;
     } else
       exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Genres");
@@ -42,6 +44,7 @@ class VueP08_Genres extends VueEntite
    */
   public function getAllEntities(array $tabEntities): string
   {
+    $ch .= getDebutHTML();
     $ch = '<h1>Les Genre</h1>';
     $ch .= "<form action='action.php' method='get'>
               <p>
@@ -61,6 +64,7 @@ class VueP08_Genres extends VueEntite
         $ch .= '</li>';
       }
     }
+    $ch .= getFinHTML();
     return $ch . '</ul>';
   }
 
@@ -73,19 +77,21 @@ class VueP08_Genres extends VueEntite
   public function getForme4Entity(AbstractEntite $entite = null): string
   {
     if (is_null($entite)) {
+      $ch .= getDebutHTML();
       $ch = '<form action="action.php" method="GET">';
       $ch .= "Id <input type='number' name='idGenre'><br>";
       $ch .= "Libelle <input type='text' name='libelleGenre'><br>";
-
       $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
+      $ch .= getFinHTML();
       return $ch . '</form>';
     }
     if ($entite instanceof EntiteP08_Genres) {
+      $ch .= getDebutHTML();
       $ch = '<form action="action.php" method="GET">';
       $ch .= "Id <input type='number' name='idGenre' value='" . $entite->getIdGenre() . "'><br>";
       $ch .= "Libelle <input type='text' name='libelleGenre' value='" . htmlspecialchars($entite->getLibelleGenre()) . "'><br>";
-
       $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
+      $ch .= getFinHTML();
       return $ch . '</form>';
     } else
       exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Genres");

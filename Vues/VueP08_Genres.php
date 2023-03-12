@@ -49,7 +49,7 @@ class VueP08_Genres extends VueEntite
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
-    $ch = '<h1>Les Genre</h1>';
+    $ch = '<h1>Les Genres</h1>';
     $ch .= "<form action='' method='get'>
               <p>
                 Choisir un numéro : <input type='number' name='idGenre' > 

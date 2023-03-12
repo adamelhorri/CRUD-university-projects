@@ -71,8 +71,8 @@ class VueP08_Prix extends VueEntite
         $ch .= '</li>';
       }
     }
-    $ch .= $this->getFinHTML();
-    return $ch . '</ul>';
+    $ch .= '</ul>';
+    return $ch . $this->getFinHTML();
   }
 }
 

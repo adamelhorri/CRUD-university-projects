@@ -61,7 +61,7 @@ class VueP08_Series extends VueEntite
               </tr>
               <tr>
                 <th>Spinoff : </th>
-                <td>" . $entite->getSpinoff() != null ? $entite->getSpinoff() : '' . "</td>
+                <td>" . $select4FK . "</td>
               </tr>\n";
               $ch .= $this->getFinHTML();
       return $ch;
@@ -100,8 +100,8 @@ class VueP08_Series extends VueEntite
         $ch .= '</li>';
       }
     }
-    $ch .= $this->getFinHTML();
-    return $ch . '</ul>';
+    $ch .= '</ul>';
+    return $ch . $this->getFinHTML();
   }
 }
 

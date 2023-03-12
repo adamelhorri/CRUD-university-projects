@@ -68,8 +68,8 @@ class VueP08_Genres extends VueEntite
         $ch .= '</li>';
       }
     }
-    $ch .= $this->getFinHTML();
-    return $ch . '</ul>';
+    $ch .= '</ul>';
+    return $ch . $this->getFinHTML();
   }
 }
 

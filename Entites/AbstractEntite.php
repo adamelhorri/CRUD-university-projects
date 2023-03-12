@@ -1,5 +1,5 @@
 <?php
-namespace Entites;
+namespace crudP08\Entites;
 
 abstract class AbstractEntite
 {

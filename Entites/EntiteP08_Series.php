@@ -1,5 +1,7 @@
 <?php
-namespace Entites;
+namespace crudP08\Entites;
+
+require_once("AbstractEntite.php");
 
 class EntiteP08_Series extends AbstractEntite
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Vues;
+namespace crudP08\Vues;
 
 class AbstractVueRelation
 {
@@ -24,7 +24,7 @@ class AbstractVueRelation
    *
    * @return string
    */
-  public function getFintHTML(): string
+  public function getFinHTML(): string
   {
     return "
 </body>

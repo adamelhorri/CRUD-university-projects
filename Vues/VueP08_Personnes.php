@@ -1,11 +1,13 @@
 <?php
-namespace Vues;
+namespace crudP08\Vues;
 
-require_once("../Entites/EntiteP08_Personnes.php");
-require_once("../Entites/AbstractEntite.php");
+require_once("../php-crud/Entites/EntiteP08_Personnes.php");
+require_once("../php-crud/Entites/AbstractEntite.php");
+require_once("VueEntite.php");
 
-use Entites\AbstractEntite;
-use Entites\EntiteP08_Personnes;
+use crudP08\Entites\AbstractEntite;
+use crudP08\Entites\EntiteP08_Personnes;
+use crudP08\Vues\VueEntite;
 
 class VueP08_Personnes extends VueEntite
 {
@@ -13,7 +15,8 @@ class VueP08_Personnes extends VueEntite
   public function getHTML4Entity(AbstractEntite $entite = null): string
   {
     if ($entite instanceof EntiteP08_Personnes) {
-      $ch .= getDebutHTML();
+      $ch = "";
+      $ch .= $this->getDebutHTML();
       $ch = "<table width='700'>
               <tr>
                 <img src='" . $entite->getImagePersonne() . "' alt='Image de la personne' width='350'>
@@ -46,7 +49,7 @@ class VueP08_Personnes extends VueEntite
                 <th>Fonction : </th>
                 <td>" . $entite->getFonctionPersonne() . "</td>
               </tr>\n";
-      $ch .= getFinHTML();
+      $ch .= $this->getFinHTML();
       return $ch;
     } else
       exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Personnes");
@@ -55,15 +58,16 @@ class VueP08_Personnes extends VueEntite
 
   public function getAllEntities(array $tabEntities): string
   {
-    $ch .= getDebutHTML();
+    $ch = "";
+    $ch .= $this->getDebutHTML();
     $ch = '<h1>Les Personnes</h1>';
-    $ch .= "<form action='action.php' method='get'>
+    $ch .= "<form action='' method='get'>
               <p>
                 Choisir un numéro : <input type='number' name='idPersonne' > 
                 <button name='action' value='afficherEntite'>Afficher</button>
               </p>
             </form>";
-    $ch .= '<p><a href="action.php?action=creerEntite">Ajouter une nouvelle personne</a></p>';
+    $ch .= '<p><a href="controleur.php?action=creerEntite">Ajouter une nouvelle personne</a></p>';
     $ch .= '<ul>';
     foreach ($tabEntities as $personne) {
       if ($personne instanceof EntiteP08_Personnes) {
@@ -72,45 +76,12 @@ class VueP08_Personnes extends VueEntite
         $ch .= $personne->getGenrePersonne() . ' ';
         $ch .= $personne->getDateNaissancePersonne() . ' ';
         $ch .= $personne->getFonctionPersonne() . ' ';
-        $ch .= '<a href="action.php?action=modifierEntite&idPersonne=' . $personne->getIdPersonne() . '">Modifier</a> ';
-        $ch .= '<a href="action.php?action=supprimerEntite&idPersonne=' . $personne->getIdPersonne() . '">Supprimer</a> ';
+        $ch .= '<a href="controleur.php?action=modifierEntite&idPersonne=' . $personne->getIdPersonne() . '">Modifier</a> ';
+        $ch .= '<a href="controleur.php?action=supprimerEntite&idPersonne=' . $personne->getIdPersonne() . '">Supprimer</a> ';
         $ch .= '</li>';
       }
     }
-    $ch .= getFinHTML();
+    $ch .= $this->getFinHTML();
     return $ch . '</ul>';
-  }
-
-  public function getForme4Entity(AbstractEntite $entite = null): string
-  {
-    if (is_null($entite)) {
-      $ch .= getDebutHTML();
-      $ch = '<form action="action.php" method="GET">';
-      $ch .= "Id <input type='number' name='idPersonne'><br>";
-      $ch .= "Nom <input type='text' name='nomPersonne'><br>";
-      $ch .= "Pays <input type='text' name='paysPersonne'><br>";
-      $ch .= "Date de naissance <input type='date' name='dateNaissancePersonne'><br>";
-      $ch .= "Date de décès <input type='date' name='dateDecesPersonne'><br>";
-      $ch .= "Genre <input type='text' name='genrePersonne'><br>";
-      $ch .= "Fonction <input type='text' name='fonctionPersonne'><br>";
-      $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
-      $ch .= getFinHTML();
-      return $ch . '</form>';
-    }
-    if ($entite instanceof EntiteP08_Personnes) {
-      $ch .= getDebutHTML();
-      $ch = '<form action="action.php" method="GET">';
-      $ch .= "Id <input type='number' name='idPersonne' value='" . $entite->getIdPersonne() . "'><br>";
-      $ch .= "Nom <input type='text' name='nomPersonne' value='" . htmlspecialchars($entite->getNomPersonne()) . "'><br>";
-      $ch .= "Pays <input type='text' name='paysPersonne' value='" . htmlspecialchars($entite->getPaysPersonne()) . "'><br>";
-      $ch .= "Date de naissance <input type='date' name='dateNaissancePersonne' valeur='" . $entite->getDateNaissancePersonne() . "'><br>";
-      $ch .= "Date de décès <input type='date' name='dateDecesPersonne' valeur='" . $entite->getDateDecesPersonne() != null ? $entite->getDateDecesPersonne() : "" . "'><br>";
-      $ch .= "Genre <input type='text' name='genrePersonne' valeur='" . htmlspecialchars($entite->getGenrePersonne()) . "'><br>";
-      $ch .= "Fonction <input type='text' name='fonctionPersonne' valeur='" . htmlspecialchars($entite->getFonctionPersonne()) . "'><br>";
-      $ch .= '<input type="submit" name="action" value="sauverEntite"/>';
-      $ch .= getFinHTML();
-      return $ch . '</form>';
-    } else
-      exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Personnes");
   }
 }

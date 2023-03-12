@@ -1,9 +1,11 @@
 <?php
 namespace crudP08\Vues;
 
-require_once("AbstractEntite.php");
+require_once("../php-crud/Entites/AbstractEntite.php");
+require_once("AbstractVueRelation.php");
 
 use crudP08\Entites\AbstractEntite;
+use crudP08\Vues\AbstractVueRelation;
 
 abstract class VueEntite extends AbstractVueRelation
 {
@@ -26,10 +28,47 @@ abstract class VueEntite extends AbstractVueRelation
   /**
    * getForme4Entity
    *
-   * @param  AbstractEntite $entite
+   * @param AbstractEntite|null $entite
    * @return string
    */
-  public abstract function getForme4Entity(AbstractEntite $entite = null): string;
-}
+  public function getForme4Entity(array $assoc = null, string $select4FK = null, AbstractEntite $entite = null, int $id): string
+  {
+    if (is_null($entite)) {
+      $ch = "";
+      $ch .= $this->getDebutHTML();
+      $ch = '<form action="" method="GET">';
+      $cpt = 0;
+      foreach($assoc as $key => $value){
+        if($cpt == 0){
+          $ch .= $key . ' <input type="number" name="' . $key . '" value="' . $id . '" readonly><br>';
+          $cpt++;
+        }
+        else
+          $ch .= $key . ' <input type="' . $value . '" name="' . $key . '"><br>';
+      }
+      $ch .= "<button name='action' value='insererEntite'>Insérer</button>";
+      $ch .= "</form>";
+      return $ch . $this->getFinHTML();
+    }
+    if ($entite instanceof AbstractEntite) {
+      $ch = "";
+      $ch .= $this->getDebutHTML();
+      $ch = '<form action="" method="GET">';
+      $cpt = 0;
+      foreach($assoc as $key => $value){
+        if($cpt == 0){
+          $ch .= $key . ' <input type="number" name="' . $key . '" value="' . $id . '" readonly><br>';
+          $cpt++;
+        }
+        else
+          $ch .= $key . ' <input type="' . $value . '" name="' . $key . '" value="' . htmlspecialchars($entite->{'get' . ucfirst($key)}()) . '"><br>';
+      }
+      $ch .= "<button name='action' value='sauverEntite'>Sauvegarder</button>";
+      $ch .= '</form>';
+      return $ch . $this->getFinHTML();
+    } else
+      exit("Le paramètre d'entrée n'est pas valide");
+  }
+  }
 
 ?>

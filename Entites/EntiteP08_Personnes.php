@@ -1,6 +1,10 @@
 <?php
 namespace crudP08\Entites;
 
+require_once("AbstractEntite.php");
+
+use crudP08\Entites\AbstractEntite;
+
 class EntiteP08_Personnes extends AbstractEntite
 {
   const TABLENAME = 'P08_Personnes';

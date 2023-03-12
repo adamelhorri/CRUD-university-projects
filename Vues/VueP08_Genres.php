@@ -18,7 +18,7 @@ class VueP08_Genres extends VueEntite
    * @param AbstractEntite|null $entite
    * @return string
    */
-  public function getHTML4Entity(AbstractEntite $entite = null): string
+  public function getHTML4Entity(string $select4FK = null, AbstractEntite $entite = null): string
   {
     if ($entite instanceof EntiteP08_Genres) {
       $ch = "";

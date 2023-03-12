@@ -12,7 +12,7 @@ use crudP08\Vues\VueEntite;
 class VueP08_Personnes extends VueEntite
 {
 
-  public function getHTML4Entity(AbstractEntite $entite = null): string
+  public function getHTML4Entity(string $select4FK = null, AbstractEntite $entite = null): string
   {
     if ($entite instanceof EntiteP08_Personnes) {
       $ch = "";

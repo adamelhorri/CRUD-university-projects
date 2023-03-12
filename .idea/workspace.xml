@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f640efb2-1e3b-443c-8b94-e315f7f8c413" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Vues/VueEntite.php" beforeDir="false" afterPath="$PROJECT_DIR$/Vues/VueEntite.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Vues/VueP08_Genres.php" beforeDir="false" afterPath="$PROJECT_DIR$/Vues/VueP08_Genres.php" afterDir="false" />
@@ -23,6 +24,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.1" />
   <component name="ProjectId" id="2LyNjjPd3yTqNm1q1eushwvCuu5" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />

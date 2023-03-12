@@ -75,14 +75,14 @@ class VueP08_Episodes extends VueEntite
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
-    $ch = '<h1>Les Séries</h1>';
+    $ch = '<h1>Les Episodes</h1>';
     $ch .= "<form action='' method='get'>
               <p>
-                Choisir un numéro : <input type='number' name='idSerie' > 
+                Choisir un numéro : <input type='number' name='idEpisode' > 
                 <button name='action' value='afficherEntite'>Afficher</button>
               </p>
             </form>";
-    $ch .= '<p><a href="controleur.php?action=creerEntite">Créer une nouvelle série</a></p>';
+    $ch .= '<p><a href="controleur.php?action=creerEntite">Créer un nouvel épisode</a></p>';
     $ch .= '<ul>';
     foreach ($tabEntities as $episode) {
       if ($serie instanceof EntiteP08_Episodes) {
@@ -91,8 +91,8 @@ class VueP08_Episodes extends VueEntite
         $ch .= $episode->getnumEpisode() . ' ';
         $ch .= $episode->getDateDiffusionEpisode() . ' ';
         $ch .= $episode->getNoteEpisode() . ' ';
-        $ch .= '<a href="controleur.php?action=modifierEntite&idSerie=' . $serie->getIdEpisode() . '">Modifier</a> ';
-        $ch .= '<a href="controleur.php?action=supprimerEntite&idSerie=' . $serie->getIdEpisode() . '">Supprimer</a> ';
+        $ch .= '<a href="controleur.php?action=modifierEntite&idSerie=' . $episode->getIdEpisode() . '">Modifier</a> ';
+        $ch .= '<a href="controleur.php?action=supprimerEntite&idSerie=' . $episode->getIdEpisode() . '">Supprimer</a> ';
         $ch .= '</li>';
       }
     }

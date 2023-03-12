@@ -15,7 +15,7 @@ abstract class VueEntite extends AbstractVueRelation
    * @param  AbstractEntite $entite
    * @return string
    */
-  public abstract function getHTML4Entity(AbstractEntite $entite = null): string;
+  public abstract function getHTML4Entity(string $select4FK = null, AbstractEntite $entite = null): string;
 
   /**
    * getAllEntities

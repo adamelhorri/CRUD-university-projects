@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f640efb2-1e3b-443c-8b94-e315f7f8c413" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9e8b7519-3a6c-4af9-9265-bc7a4945e151.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vues/VueEntite.php" beforeDir="false" afterPath="$PROJECT_DIR$/Vues/VueEntite.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vues/VueP08_Genres.php" beforeDir="false" afterPath="$PROJECT_DIR$/Vues/VueP08_Genres.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vues/VueP08_Personnes.php" beforeDir="false" afterPath="$PROJECT_DIR$/Vues/VueP08_Personnes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vues/VueP08_Prix.php" beforeDir="false" afterPath="$PROJECT_DIR$/Vues/VueP08_Prix.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vues/VueP08_Series.php" beforeDir="false" afterPath="$PROJECT_DIR$/Vues/VueP08_Series.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +20,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.1" />
   <component name="ProjectId" id="2LyNjjPd3yTqNm1q1eushwvCuu5" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -31,6 +29,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/el horri/Desktop/php-crud",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -43,6 +49,7 @@
       <workItem from="1676926490094" duration="1238000" />
       <workItem from="1678114669780" duration="2690000" />
       <workItem from="1678198091768" duration="70000" />
+      <workItem from="1678640396896" duration="1490000" />
     </task>
     <servers />
   </component>

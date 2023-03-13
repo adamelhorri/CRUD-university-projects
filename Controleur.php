@@ -124,7 +124,7 @@ switch ($_GET['action']) {
     try{
       $myPDO->insert($paramInsert);
       $colNameId = $classeEntite->getStaticPropertyValue(("PK"))[0];
-      $entite = $myPDO->get($colNameId, $_GET[$cloNameId]);
+      $entite = $myPDO->get($colNameId, $_GET[$colNameId]);
       $message .= "<p>Entité $entite crée</p>\n";
     } catch (PDOException $pdoe){
       $_SESSION['état'] = 'afficheTable';

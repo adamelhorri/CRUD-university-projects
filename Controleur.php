@@ -10,10 +10,22 @@ require_once("Vues/VueP08_Series.php");
 require_once("Vues/VueP08_Personnes.php");
 require_once("Vues/VueP08_Prix.php");
 require_once("Vues/VueP08_Genres.php");
+require_once("Vues/VueP08_Episodes.php");
+require_once("Vues/VueP08_Saisons.php");
+require_once("Vues/VueP08_Personnages.php");
+// require_once("Vues/VueP08_Etre.php");
+// require_once("Vues/VueP08_Role.php");
+// require_once("Vues/VueP08_Remporter.php");
 require_once("Entites/EntiteP08_Series.php");
 require_once("Entites/EntiteP08_Personnes.php");
 require_once("Entites/EntiteP08_Prix.php");
 require_once("Entites/EntiteP08_Genres.php");
+require_once("Entites/EntiteP08_Episodes.php");
+require_once("Entites/EntiteP08_Saisons.php");
+require_once("Entites/EntiteP08_Personnages.php");
+// require_once("Entites/EntiteP08_Etre.php");
+// require_once("Entites/EntiteP08_Role.php");
+// require_once("Entites/EntiteP08_Remporter.php");
 
 use crudP08\MyPDO;
 use \ReflectionClass;
@@ -32,7 +44,7 @@ function getListeTables(): string
 <form action='' method='GET'>
   <input type='hidden' name='action' value='selectionnerTable'>
   <select name='table_name'>
-    <option>--- Sélectionnez une table ---</option>
+    <option disabled selected value=''>--- Sélectionnez une table ---</option>
     <option value='P08_Series'>Séries</option>
     <option value='P08_Saisons'>Saisons</option>
     <option value='P08_Episodes'>Episodes</option>
@@ -63,6 +75,10 @@ switch ($_GET['action']) {
     $_SESSION['état'] = 'Accueil';
     break;
   case 'selectionnerTable':
+    if(@$_GET['table_name'] == ''){
+      $_SESSION['état'] = 'Accueil';
+      break;
+    }
     $myPDO->setNomTable($_GET['table_name']);
     $_SESSION['état'] = 'afficheTable';
     $_SESSION['table_name'] = $_GET['table_name'];
@@ -72,6 +88,10 @@ switch ($_GET['action']) {
     $classeEntite = new ReflectionClass("crudP08\Entites\Entite" . ucfirst($_SESSION['table_name']));
     $_SESSION['cle'] = $classeEntite->getStaticPropertyValue(("PK"))[0];
     $_SESSION['état'] = 'afficherEntite';
+    if(count($classeEntite->getStaticPropertyValue(("FK"))) == 1)
+      $_SESSION['fk'] = $classeEntite->getStaticPropertyValue(("FK"))[0];
+    else if(isset($_SESSION['fk']))
+      unset($_SESSION['fk']);
     break;
   case 'creerEntite': // construction du formulaire de création de l'entité
     $myPDO->setNomTable($_SESSION['table_name']);
@@ -81,11 +101,17 @@ switch ($_GET['action']) {
     $colTypes = $classeEntite->getStaticPropertyValue("COLTYPES");
     $paramForm = array_combine($colNames, $colTypes);
     $id = $myPDO->getNextInt($classeEntite->getStaticPropertyValue(("PK"))[0]);
+    $b = false;
+    $fk = null;
+    if(count($classeEntite->getStaticPropertyValue(("FK"))) == 1){
+      $b = true;
+      $fk = $classeEntite->getStaticPropertyValue(("FK"))[0];
+    }
     // $paramForm est un tableau associatif destiné à configurer le formulaire
     // Réflection pour récupérer la bonne vue
     $classeVue = new ReflectionClass("crudP08\Vues\Vue" . ucfirst($_SESSION['table_name']));
     $vue = $classeVue->newInstance();
-    $contenu .= $vue->getForme4Entity($paramForm, null, null, $id);
+    $contenu .= $vue->getForme4Entity($paramForm, $b ? $myPDO->getSelectFK($fk, null) : null, null, $id, $b ? $fk : null);
     $_SESSION['état'] = 'formulaireTable';
     break;
   case 'insererEntite': // validation du formulaire de création d'une entité
@@ -97,8 +123,8 @@ switch ($_GET['action']) {
     $paramInsert = array_diff_key($_GET, array('action' => 'insererEntite'));
     try{
       $myPDO->insert($paramInsert);
-      $cloNameId = $classeEntite->getStaticPropertyValue(("PK"))[0];
-      $entite = $myPDO->get($cloNameId, $_GET[$cloNameId]);
+      $colNameId = $classeEntite->getStaticPropertyValue(("PK"))[0];
+      $entite = $myPDO->get($colNameId, $_GET[$cloNameId]);
       $message .= "<p>Entité $entite crée</p>\n";
     } catch (PDOException $pdoe){
       $_SESSION['état'] = 'afficheTable';
@@ -122,11 +148,17 @@ switch ($_GET['action']) {
     $paramForm = array_combine($colNames, $colTypes);
     $cle = $classeEntite->getStaticPropertyValue(("PK"))[0];
     $entite = $myPDO->get($cle, $_GET[$cle]);
+    $b = false;
+    $fk = null;
+    if(count($classeEntite->getStaticPropertyValue(("FK"))) == 1){
+      $b = true;
+      $fk = $classeEntite->getStaticPropertyValue(("FK"))[0];
+    }
     // $paramForm est un tableau associatif destiné à configurer le formulaire
     // Réflection pour récupérer la bonne vue
     $classeVue = new ReflectionClass("crudP08\Vues\Vue" . ucfirst($_SESSION['table_name']));
     $vue = $classeVue->newInstance();
-    $contenu .= $vue->getForme4Entity($paramForm, null, $entite, $_GET[$cle]);
+    $contenu .= $vue->getForme4Entity($paramForm, $b ? $myPDO->getSelectFK($fk, ($fk == 'spinoff' ? $entite->{'get' . $fk}() : $entite->{'get' . ucfirst($cle)}())) : null, $entite, $_GET[$cle], $b ? $fk : null);
     $_SESSION['état'] = 'formulaireTable';
     break;
   case 'sauverEntite': // validation  du formulaire de modification de l'entité
@@ -167,8 +199,10 @@ switch ($_SESSION['état']) {
     $entite = $myPDO->get($_SESSION['cle'], $_GET[$_SESSION['cle']]);
     if ($entite == null)
       $contenu .= 'Erreur 404 : l\'entité de la classe Entite' . $_SESSION['table_name'] . ' (id : ' . $_GET[$_SESSION['cle']] . ') n\'esxiste pas';
+    else if(isset($_SESSION['fk']))
+      $contenu .= $vue->getHTML4Entity($myPDO->getFK($_SESSION['fk'], $entite->{'get' . ucfirst($_SESSION['fk'])}()), $entite);
     else
-      $contenu .= $vue->getHTML4Entity($entite);
+      $contenu .= $vue->getHTML4Entity(null, $entite);
     break;
   case 'formulaireTable':
     break;

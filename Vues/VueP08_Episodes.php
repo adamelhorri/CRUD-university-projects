@@ -61,9 +61,10 @@ class VueP08_Episodes extends VueEntite
               </tr>\n";
               $ch .= $this->getFinHTML();
       return $ch;
-    } else
-      exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Series");
-  }
+    } else{
+      echo get_class($entite);
+      exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Episodes");
+  }}
 
   /**
    * getAllEntities
@@ -85,14 +86,14 @@ class VueP08_Episodes extends VueEntite
     $ch .= '<p><a href="controleur.php?action=creerEntite">Créer un nouvel épisode</a></p>';
     $ch .= '<ul>';
     foreach ($tabEntities as $episode) {
-      if ($serie instanceof EntiteP08_Episodes) {
+      if ($episode instanceof EntiteP08_Episodes) {
         $ch .= '<li>' . $episode->getIdEpisode() . ' ';
         $ch .= $episode->getNomEpisode() . ' ';
         $ch .= $episode->getnumEpisode() . ' ';
         $ch .= $episode->getDateDiffusionEpisode() . ' ';
         $ch .= $episode->getNoteEpisode() . ' ';
-        $ch .= '<a href="controleur.php?action=modifierEntite&idSerie=' . $episode->getIdEpisode() . '">Modifier</a> ';
-        $ch .= '<a href="controleur.php?action=supprimerEntite&idSerie=' . $episode->getIdEpisode() . '">Supprimer</a> ';
+        $ch .= '<a href="controleur.php?action=modifierEntite&idEpisode=' . $episode->getIdEpisode() . '">Modifier</a> ';
+        $ch .= '<a href="controleur.php?action=supprimerEntite&idEpisode=' . $episode->getIdEpisode() . '">Supprimer</a> ';
         $ch .= '</li>';
       }
     }

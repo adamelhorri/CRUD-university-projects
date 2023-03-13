@@ -9,7 +9,7 @@ use crudP08\Entites\AbstractEntite;
 use crudP08\Entites\EntiteP08_Saisons;
 use crudP08\Vues\VueEntite;
 
-class VueP08_Episodes extends VueEntite
+class VueP08_Saisons extends VueEntite
 {
 /**
    * getHTML4Entity
@@ -50,7 +50,7 @@ class VueP08_Episodes extends VueEntite
               $ch .= $this->getFinHTML();
       return $ch;
     } else
-      exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Series");
+      exit("Le paramètre d'entrée n'est pas une instance de EntiteP08_Saisons");
   }
 
   /**
@@ -63,7 +63,7 @@ class VueP08_Episodes extends VueEntite
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
-    $ch = '<h1>Les Séries</h1>';
+    $ch = '<h1>Les Saisons</h1>';
     $ch .= "<form action='' method='get'>
               <p>
                 Choisir un numéro : <input type='number' name='idSaison' > 
@@ -73,14 +73,14 @@ class VueP08_Episodes extends VueEntite
     $ch .= '<p><a href="controleur.php?action=creerEntite">Créer une nouvelle saison</a></p>';
     $ch .= '<ul>';
     foreach ($tabEntities as $saison) {
-      if ($serie instanceof EntiteP08_Saisons) {
+      if ($saison instanceof EntiteP08_Saisons) {
         $ch .= '<li>' . $saison->getIdSaison() . ' ';
         $ch .= $saison->getNomSaison() . ' ';
         $ch .= $saison->getnumSaison() . ' ';
         $ch .= $saison->getDebutSaison() . ' ';
         $ch .= $saison->getFinSaison() . ' ';
-        $ch .= '<a href="controleur.php?action=modifierEntite&idSerie=' . $saison->getIdEpisode() . '">Modifier</a> ';
-        $ch .= '<a href="controleur.php?action=supprimerEntite&idSerie=' . $saison->getIdEpisode() . '">Supprimer</a> ';
+        $ch .= '<a href="controleur.php?action=modifierEntite&idSaison=' . $saison->getIdSaison() . '">Modifier</a> ';
+        $ch .= '<a href="controleur.php?action=supprimerEntite&idSaison=' . $saison->getIdSaison() . '">Supprimer</a> ';
         $ch .= '</li>';
       }
     }

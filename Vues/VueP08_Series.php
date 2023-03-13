@@ -25,9 +25,6 @@ class VueP08_Series extends VueEntite
       $ch .= $this->getDebutHTML();
       $ch = "<table width='700'>
               <tr>
-                <img src='" . $entite->getImageSerie() . "' alt='Poster de la série' width='350'>
-              </tr>
-              <tr>
                 <th>Id : </th>
                 <td>" . $entite->getIdSerie() . "</td>
               </tr>
@@ -60,7 +57,7 @@ class VueP08_Series extends VueEntite
                 <td>" . $entite->getDescriptionSerie() . "</td>
               </tr>
               <tr>
-                <th>Spinoff : </th>
+                <th>Spinoff de : </th>
                 <td>" . $select4FK . "</td>
               </tr>\n";
               $ch .= $this->getFinHTML();

@@ -6,12 +6,13 @@ require_once("AbstractEntite.php");
 class EntiteP08_Episodes extends AbstractEntite
 {
   const TABLENAME = 'P08_Episodes';
-  static $COLNAMES = array('idEpisode', 'nomEpisode', 'numEpisode', 'dateDiffusionEpisode', 'noteEpisode', 'descriptionEpisode', 'dureeEpisode');
-  static $COLTYPES = array('number', 'text', 'number', 'date', 'number', 'text', 'number');
+  static $COLNAMES = array('idEpisode', 'idSaison', 'nomEpisode', 'numEpisode', 'dateDiffusionEpisode', 'noteEpisode', 'descriptionEpisode', 'dureeEpisode');
+  static $COLTYPES = array('number', 'number', 'text', 'number', 'date', 'number', 'textarea', 'number');
   static $PK = array('idEpisode');
   static $AUTOID = FALSE;
   static $FK = array('idSaison');
   protected int $idEpisode;
+  protected int $idSaison;
   protected string $nomEpisode;
   protected int $numEpisode;
   protected mixed $dateDiffusionEpisode;
@@ -174,9 +175,31 @@ class EntiteP08_Episodes extends AbstractEntite
     return $this;
   }
 
+  /**
+   * Get the value of idSaison
+   * 
+   * @return int
+   */ 
+  public function getIdSaison(): int
+  {
+    return $this->idSaison;
+  }
+
+  /**
+   * Set the value of idSaison
+   *
+   * @return  self
+   */ 
+  public function setIdSaison($idSaison)
+  {
+    $this->idSaison = $idSaison;
+
+    return $this;
+  }
+
   public function __toString(): string
   {
-    return "object:EntiteP08_Episodes (" . $this->idEpisode . ", " . $this->nomEpisode . ", " . $this->numEpisode . ", " . $this->dateDiffusionEpisode . ", " . $this->noteEpisode . ", " . $this->descriptionEpisode . ", " . $this->dureeEpisode . ")";
+    return "object:EntiteP08_Episodes (" . $this->idEpisode . ", " . $this->idSaison . ", " . $this->nomEpisode . ", " . $this->numEpisode . ", " . $this->dateDiffusionEpisode . ", " . $this->noteEpisode . ", " . $this->descriptionEpisode . ", " . $this->dureeEpisode . ")";
   }
 }
 

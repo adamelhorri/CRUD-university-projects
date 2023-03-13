@@ -8,17 +8,18 @@ use crudP08\Entites\AbstractEntite;
 class EntiteP08_Saisons extends AbstractEntite
 {
   const TABLENAME = 'P08_Saisons';
-  static $COLNAMES = array('idSaison', 'nomSaison', 'numSaison', 'debutSaison', 'finSaison', 'imageSaison');
-  static $COLTYPES = array('number', 'text', 'text', 'date', 'date', 'text');
+  static $COLNAMES = array('idSaison', 'idSerie', 'nomSaison', 'numSaison', 'debutSaison', 'finSaison', 'imageSaison');
+  static $COLTYPES = array('number', 'number', 'text', 'text', 'date', 'date', 'text');
   static $PK = array('idSaison');
   static $AUTOID = FALSE;
   static $FK = array('idSerie');
   protected int $idSaison;
+  protected int $idSerie;
   protected string $nomSaison;
   protected int $numSaison;
   protected mixed $debutSaison;
   protected mixed $finSaison;
-  protected string $imageSaison;
+  protected ?string $imageSaison;
 
 
   /**
@@ -137,7 +138,7 @@ class EntiteP08_Saisons extends AbstractEntite
    *
    * @return string
    */
-  public function getImageSaison(): string
+  public function getImageSaison(): ?string
   {
     return $this->imageSaison;
   }
@@ -154,9 +155,31 @@ class EntiteP08_Saisons extends AbstractEntite
     return $this;
   }
 
+  /**
+   * Get the value of idSerie
+   * 
+   * @return int
+   */ 
+  public function getIdSerie(): int
+  {
+    return $this->idSerie;
+  }
+
+  /**
+   * Set the value of idSerie
+   *
+   * @return  self
+   */ 
+  public function setIdSerie($idSerie)
+  {
+    $this->idSerie = $idSerie;
+
+    return $this;
+  }
+
   public function __toString(): string
   {
-    return "object:EntiteP08_Saisons (" . $this->idSaison . ", " . $this->nomSaison . ", " . $this->numSaison . ", " . $this->debutSaison . ", " . $this->finSaison . ", " . $this->imageSaison . ")";
+    return "object:EntiteP08_Saisons (" . $this->idSaison . ", " . $this->idSaison . ", " . $this->nomSaison . ", " . $this->numSaison . ", " . $this->debutSaison . ", " . $this->finSaison . ", " . $this->imageSaison . ")";
   }
 }
 

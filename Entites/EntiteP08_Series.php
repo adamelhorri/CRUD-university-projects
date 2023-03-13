@@ -7,20 +7,20 @@ class EntiteP08_Series extends AbstractEntite
 {
   const TABLENAME = 'P08_Series';
   static $COLNAMES = array('idSerie', 'nomSerie', 'langueSerie', 'debutSerie', 'finSerie', 'siteOfficiel', 'noteSerie', 'imageSerie', 'descriptionSerie', 'spinoff');
-  static $COLTYPES = array('number', 'text', 'text', 'date', 'date', 'text', 'number', 'text', 'text', 'number');
+  static $COLTYPES = array('number', 'text', 'text', 'date', 'date', 'text', 'number', 'text', 'textarea', 'number');
   static $PK = array('idSerie');
   static $AUTOID = FALSE;
-  static $FK = array();
+  static $FK = array('spinoff');
   protected int $idSerie;
   protected string $nomSerie;
   protected string $langueSerie;
   protected mixed $debutSerie;
   protected mixed $finSerie;
-  protected string $siteOfficiel;
+  protected ?string $siteOfficiel;
   protected float $noteSerie;
   protected string $imageSerie;
   protected string $descriptionSerie;
-  protected int $spinoff;
+  protected ?int $spinoff;
 
 
   /**
@@ -138,7 +138,7 @@ class EntiteP08_Series extends AbstractEntite
    * 
    * @return string
    */
-  public function getSiteOfficiel(): string
+  public function getSiteOfficiel(): ?string
   {
     return $this->siteOfficiel;
   }
@@ -226,7 +226,7 @@ class EntiteP08_Series extends AbstractEntite
    * 
    * @return int
    */
-  public function getSpinoff(): int
+  public function getSpinoff(): ?int
   {
     return $this->spinoff;
   }

@@ -15,7 +15,7 @@ class EntiteP08_Personnages extends AbstractEntite
   static $FK = array('idPersonne');
 
   protected int $idPersonne;
-  protected string $imagePersonnage;
+  protected ?string $imagePersonnage;
   protected string $nomPersonnage;
   protected bool $voice;
 

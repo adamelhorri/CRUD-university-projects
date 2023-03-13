@@ -16,12 +16,12 @@ class EntiteP08_Personnes extends AbstractEntite
 
   protected int $idPersonne;
   protected string $nomPersonne;
-  protected string $paysPersonne;
+  protected ?string $paysPersonne;
   protected mixed $dateNaissancePersonne;
   protected mixed $dateDecesPersonne;
-  protected string $genrePersonne;
+  protected ?string $genrePersonne;
   protected string $fonctionPersonne;
-  protected string $imagePersonne;
+  protected ?string $imagePersonne;
 
   /**
    * Get the value of idPersonne
@@ -72,7 +72,7 @@ class EntiteP08_Personnes extends AbstractEntite
    *
    * @return string
    */
-  public function getPaysPersonne(): string
+  public function getPaysPersonne(): ?string
   {
     return $this->paysPersonne;
   }
@@ -138,7 +138,7 @@ class EntiteP08_Personnes extends AbstractEntite
    *
    * @return string
    */
-  public function getGenrePersonne(): string
+  public function getGenrePersonne(): ?string
   {
     return $this->genrePersonne;
   }
@@ -182,7 +182,7 @@ class EntiteP08_Personnes extends AbstractEntite
    *
    * @return string
    */
-  public function getImagePersonne(): string
+  public function getImagePersonne(): ?string
   {
     return $this->imagePersonne;
   }

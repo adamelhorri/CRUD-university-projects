@@ -31,7 +31,7 @@ abstract class VueEntite extends AbstractVueRelation
    * @param AbstractEntite|null $entite
    * @return string
    */
-  public function getForme4Entity(array $assoc = null, string $select4FK = null, AbstractEntite $entite = null, int $id): string
+  public function getForme4Entity(array $assoc = null, string $select4FK = null, AbstractEntite $entite = null, int $id, string $fk = null): string
   {
     if (is_null($entite)) {
       $ch = "";
@@ -39,12 +39,24 @@ abstract class VueEntite extends AbstractVueRelation
       $ch = '<form action="" method="GET">';
       $cpt = 0;
       foreach($assoc as $key => $value){
-        if($cpt == 0){
+        if($cpt == 0 && $fk != 'idPersonne'){
           $ch .= $key . ' <input type="number" name="' . $key . '" value="' . $id . '" readonly><br>';
           $cpt++;
         }
-        else
-          $ch .= $key . ' <input type="' . $value . '" name="' . $key . '"><br>';
+        else{
+          if($key == $fk)
+            $ch .= $key . ' ' . $select4FK . '</br>';
+          else if($value == 'textarea')
+            $ch .= $key . '<textarea name="' . $key . '"></textarea><br>';
+          else if($value == 'boolean'){
+            $ch .= $key . '<select name="' . $key . '">
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select><br>';
+          }
+          else
+            $ch .= $key . ' <input type="' . $value . '" name="' . $key . '"><br>';
+        }
       }
       $ch .= "<button name='action' value='insererEntite'>Insérer</button>";
       $ch .= "</form>";
@@ -56,12 +68,30 @@ abstract class VueEntite extends AbstractVueRelation
       $ch = '<form action="" method="GET">';
       $cpt = 0;
       foreach($assoc as $key => $value){
-        if($cpt == 0){
+        if($cpt == 0 && $fk != 'idPersonne'){
           $ch .= $key . ' <input type="number" name="' . $key . '" value="' . $id . '" readonly><br>';
           $cpt++;
         }
-        else
-          $ch .= $key . ' <input type="' . $value . '" name="' . $key . '" value="' . htmlspecialchars($entite->{'get' . ucfirst($key)}()) . '"><br>';
+        else{
+          if($key == $fk)
+            $ch .= $key . ' ' . $select4FK . '<br>';
+          else if($value == 'textarea')
+            $ch .= $key . '<textarea name="' . $key . '">' . htmlspecialchars($entite->{'get' . ucfirst($key)}()) . '</textarea><br>';
+          else if($value == 'boolean'){
+            $ch .= $key . '<select name="' . $key . '">';
+            if(htmlspecialchars($entite->{'get' . ucfirst($key)}())){
+              $ch .= '<option value="true" selected>True</option>
+              <option value="false">False</option>';
+            }
+            else{
+              $ch .= '<option value="true">True</option>
+              <option value="false" selected>False</option>';
+            }
+            $ch .= '</select><br>';
+          }
+          else
+            $ch .= $key . ' <input type="' . $value . '" name="' . $key . '" value="' . htmlspecialchars($entite->{'get' . ucfirst($key)}()) . '"><br>';
+        }
       }
       $ch .= "<button name='action' value='sauverEntite'>Sauvegarder</button>";
       $ch .= '</form>';

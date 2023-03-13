@@ -6,6 +6,12 @@ require_once("Entites/EntiteP08_Series.php");
 require_once("Entites/EntiteP08_Personnes.php");
 require_once("Entites/EntiteP08_Prix.php");
 require_once("Entites/EntiteP08_Genres.php");
+require_once("Entites/EntiteP08_Episodes.php");
+require_once("Entites/EntiteP08_Saisons.php");
+require_once("Entites/EntiteP08_Etre.php");
+require_once("Entites/EntiteP08_Role.php");
+require_once("Entites/EntiteP08_Remporter.php");
+require_once("Entites/EntiteP08_Personnages.php");
 
 use \PDO;
 use \PDOStatement;
@@ -50,7 +56,14 @@ class MyPDO
    * @var PDOStatement
    */
   private PDOStatement $pdos_next_int;
-
+  /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_fk;
+  /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_select_fk;
   /**
    * @var string
    */
@@ -135,6 +148,71 @@ class MyPDO
     }
     $entite = $this->getPdosSelect()->fetchObject('crudP08\Entites\Entite' . ucfirst($this->getNomTable()));
     return $entite ? $entite : null;
+  }
+
+  private function initPDOS_fk(string $colName): void
+  {
+    if ($colName == 'idSaison')
+      $requete = "SELECT nomSerie, numSaison FROM P08_Saisons NATURAL JOIN P08_Series WHERE $colName = :$colName";
+    else if ($colName == 'spinoff')
+      $requete = "SELECT nomSerie FROM P08_Series WHERE idSerie = :$colName";
+    else
+      $requete = 'SELECT nom' . substr($colName, 2) . ' FROM P08_' . substr($colName, 2) . "s WHERE $colName = :$colName";
+    $this->pdos_fk = $this->pdo->prepare($requete);
+  }
+
+  public function getFK(string $key, $val): string
+  {
+    if ($val == null)
+      return '';
+    if (!isset($this->pdos_fk))
+      $this->initPDOS_fk($key);
+    try {
+      $this->getPdosFK()->bindValue(':' . $key, $val);
+      $this->getPdosFK()->execute();
+    } catch (PDOException $pdoe) {
+      print $pdoe;
+    }
+    if ($key == 'idSaison') {
+      $ligne = $this->getPdosFK()->fetch();
+      return $ligne[0] . ' (Saison ' . $ligne[1] . ')';
+    } else
+      return $this->getPdosFK()->fetchColumn();
+  }
+
+  private function initPDOS_select_fk(string $colName): void
+  {
+    if ($colName == 'idSaison')
+      $requete = 'SELECT idSaison, nomSerie, numSaison FROM P08_Saisons NATURAL JOIN P08_Series';
+    else if ($colName == 'spinoff')
+      $requete = 'SELECT idSerie, nomSerie FROM P08_Series';
+    else
+      $requete = 'SELECT ' . $colName . ', nom' . substr($colName, 2) . ' FROM P08_' . substr($colName, 2) . 's';
+    $this->pdos_select_fk = $this->pdo->prepare($requete);
+  }
+
+  public function getSelectFK(string $key, $id = null): string
+  {
+    if (!isset($this->pdos_select_fk))
+      $this->initPDOS_select_fk($key);
+    try {
+      $this->getPdosSelectFK()->execute();
+    } catch (PDOException $pdoe) {
+      print $pdoe;
+    }
+    $lignes = $this->getPdosSelectFK()->fetchAll();
+    $ch = '<select name="' . $key . '">';
+    if ($key == 'idSaison')
+      foreach ($lignes as $ligne)
+        $ch .= '<option value="' . $ligne[0] . '" ' . ($ligne[0] == $id ? 'selected' : '') . '>' . $ligne[1] . ' (Saison ' . $ligne[2] . ')</option>';
+    else {
+      if ($key = 'spinoff')
+        $ch .= '<option value="" selected></option>';
+      foreach ($lignes as $ligne)
+        $ch .= '<option value="' . $ligne[0] . '" ' . ($ligne[0] == $id ? 'selected' : '') . '>' . $ligne[1] . '</option>';
+    }
+    $ch .= '</select>';
+    return $ch;
   }
 
   private function initPDOS_next_int(string $nomColID = 'id'): void
@@ -355,4 +433,19 @@ class MyPDO
     return $this->pdos_next_int;
   }
 
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosFK(): PDOStatement
+  {
+    return $this->pdos_fk;
+  }
+
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosSelectFK(): PDOStatement
+  {
+    return $this->pdos_select_fk;
+  }
 }

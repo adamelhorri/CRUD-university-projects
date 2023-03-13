@@ -19,9 +19,6 @@ class VueP08_Personnes extends VueEntite
       $ch .= $this->getDebutHTML();
       $ch = "<table width='700'>
               <tr>
-                <img src='" . $entite->getImagePersonne() . "' alt='Image de la personne' width='350'>
-              </tr>
-              <tr>
                 <th>Id : </th>
                 <td>" . $entite->getIdPersonne() . "</td>
               </tr>

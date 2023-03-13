@@ -15,11 +15,10 @@ class VueP08_Personnages extends VueEntite
   public function getHTML4Entity(string $select4FK = null, AbstractEntite $entite = null): string
   {
     if ($entite instanceof EntiteP08_Personnages) {
+      $ch = "";
       $ch .= $this->getDebutHTML();
+      $voice = $entite->getVoice() == 1 ? 'true' : 'false';
       $ch = "<table width='700'>
-              <tr>
-                <img src='" . $entite->getImagePersonnage() . "' alt='Image de la personnage' width='350'>
-              </tr>
               <tr>
                 <th>Id : </th>
                 <td>" . $select4FK . "</td>
@@ -30,7 +29,7 @@ class VueP08_Personnages extends VueEntite
               </tr>
               <tr>
                 <th>Voice : </th>
-                <td>" . $entite->getVoice() . "</td>
+                <td>" . $voice . "</td>
               </tr>\n";
       return $ch . $this->getFinHTML();
     } else
@@ -40,22 +39,23 @@ class VueP08_Personnages extends VueEntite
 
   public function getAllEntities(array $tabEntities): string
   {
+    $ch = "";
     $ch .= $this->getDebutHTML();
     $ch = '<h1>Les Personnages</h1>';
-    $ch .= "<form action='action.php' method='get'>
+    $ch .= "<form action='' method='get'>
               <p>
                 Choisir un numéro : <input type='number' name='idPersonne' > 
                 <button name='action' value='afficherEntite'>Afficher</button>
               </p>
             </form>";
-    $ch .= '<p><a href="action.php?action=creerEntite">Ajouter un nouveau personnage</a></p>';
+    $ch .= '<p><a href="controleur.php?action=creerEntite">Ajouter un nouveau personnage</a></p>';
     $ch .= '<ul>';
     foreach ($tabEntities as $personnage) {
       if ($personnage instanceof EntiteP08_Personnages) {
         $ch .= '<li>' . $personnage->getIdPersonne() . ' ';
         $ch .= $personnage->getNomPersonnage() . ' ';
-        $ch .= '<a href="action.php?action=modifierEntite&idPersonne=' . $personnage->getIdPersonne() . '">Modifier</a> ';
-        $ch .= '<a href="action.php?action=supprimerEntite&idPersonne=' . $personnage->getIdPersonne() . '">Supprimer</a> ';
+        $ch .= '<a href="controleur.php?action=modifierEntite&idPersonne=' . $personnage->getIdPersonne() . '">Modifier</a> ';
+        $ch .= '<a href="controleur.php?action=supprimerEntite&idPersonne=' . $personnage->getIdPersonne() . '">Supprimer</a> ';
         $ch .= '</li>';
       }
     }

@@ -1,6 +1,7 @@
 <?php
 namespace crudP08\Iterateurs;
 
+use crudP08\Entites\EntiteP08_Genres;
 use crudP08\MyPDO;
 use \Iterator;
 use \Countable;
@@ -39,6 +40,7 @@ class IterateurP08_Genres implements Iterator, Countable
    */
   public function count(): int
   {
+    $this->myPDO->setIdTable("idGenre");
     return $this->myPDO->count();
   }
 
@@ -68,6 +70,8 @@ class IterateurP08_Genres implements Iterator, Countable
   public function next()
   {
     $this->idGenre = $this->idGenre + 1;
+    if(!($this->current() instanceof EntiteP08_Genres) && $this->valid())
+      return $this->idGenre = $this->myPDO->getIdSuivant($this->idGenre);
   }
 
   /**
@@ -86,5 +90,14 @@ class IterateurP08_Genres implements Iterator, Countable
   public function valid(): bool
   {
     return $this->idGenre > 0 && $this->idGenre <= $this->count();
+  }
+
+  /**
+   * 
+   * @return int
+   */
+  public function nbInstances(): int
+  {
+    return $this->myPDO->getNbInstances();
   }
 }

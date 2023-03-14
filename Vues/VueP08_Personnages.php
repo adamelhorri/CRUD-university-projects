@@ -37,7 +37,7 @@ class VueP08_Personnages extends VueEntite
   }
 
 
-  public function getAllEntities(array $tabEntities): string
+  public function getAllEntities(array $tabEntities, string $pages): string
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
@@ -60,6 +60,7 @@ class VueP08_Personnages extends VueEntite
       }
     }
     $ch .= '</ul>';
+    $ch .= $pages;
     return $ch . $this->getFinHTML();
   }
 

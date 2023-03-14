@@ -23,7 +23,7 @@ abstract class VueEntite extends AbstractVueRelation
    * @param  array $tabEntities
    * @return string
    */
-  public abstract function getAllEntities(array $tabEntities): string;
+  public abstract function getAllEntities(array $tabEntities, string $pages): string;
 
   /**
    * getForme4Entity

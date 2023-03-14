@@ -1,6 +1,7 @@
 <?php
 namespace crudP08\Iterateurs;
 
+use crudP08\Entites\EntiteP08_Prix;
 use crudP08\MyPDO;
 use \Iterator;
 use \Countable;
@@ -35,6 +36,7 @@ class IterateurP08_Prix implements Iterator, Countable
    */
   public function count(): int
   {
+    $this->myPDO->setIdTable("idPrix");
     return $this->myPDO->count();
   }
   /**
@@ -59,6 +61,8 @@ class IterateurP08_Prix implements Iterator, Countable
   public function next()
   {
     $this->idPrix = $this->idPrix + 1;
+    if(!($this->current() instanceof EntiteP08_Prix) && $this->valid())
+      return $this->idPrix = $this->myPDO->getIdSuivant($this->idPrix);
   }
   /**
    * Remet l'itérateur à la première prix.
@@ -74,5 +78,14 @@ class IterateurP08_Prix implements Iterator, Countable
   public function valid(): bool
   {
     return $this->idPrix > 0 && $this->idPrix <= $this->count();
+  }
+
+  /**
+   * 
+   * @return int
+   */
+  public function nbInstances(): int
+  {
+    return $this->myPDO->getNbInstances();
   }
 }

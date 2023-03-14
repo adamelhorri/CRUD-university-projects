@@ -203,13 +203,7 @@ switch ($_SESSION['état']) {
     $contenu .= getListeTables();
     break;
   case 'afficheTable':
-    if (isset($_GET['reset'])) {
-      session_unset();
-      session_destroy();
-    }
     if (!isset($_SESSION['collection'])) {
-      $iterateur = new ReflectionClass("crudP08\Iterateurs\Iterateur" . ucfirst($_SESSION['table_name']));
-      $_SESSION['collection'] = $iterateur->newInstance();
       $_SESSION['debut'] = 1;
       $_SESSION['taillePage'] = 10;
     }
@@ -218,11 +212,13 @@ switch ($_SESSION['état']) {
     }
     // echo "<p>**** " . count($_SESSION['collection']) . " ****</p>";
     // echo "<p>**** " . $_SESSION['debut'] . " -- " . $_SESSION['taillePage'] + $_SESSION['debut'] - 1 . " ****</p>";
+    $iterateur = new ReflectionClass("crudP08\Iterateurs\Iterateur" . ucfirst($_SESSION['table_name']));
+    $instance = $iterateur->newInstance();//& $_SESSION['collection'];
 
-    $pageCourante = new LimitIterator($_SESSION['collection'], $_SESSION['debut'] - 1, $_SESSION['taillePage']);
+    $pageCourante = new LimitIterator($instance, $_SESSION['debut'] - 1, $_SESSION['taillePage']);
 
     $decalageFirst = 0;
-    $decalageLast = (int) ((count($_SESSION['collection']) / $_SESSION['taillePage']));
+    $decalageLast = (int) (($instance->nbInstances()) / $_SESSION['taillePage']);
     $decalagePrev = (isset($_GET['suivant'])) && $_GET['suivant'] > 0 ? $_GET['suivant'] - 1 : 0;
     $decalageNext = (isset($_GET['suivant'])) ? ($_GET['suivant'] < $decalageLast ? $_GET['suivant'] + 1 : $decalageLast) : 1;
 

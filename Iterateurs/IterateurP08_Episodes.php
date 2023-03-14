@@ -1,6 +1,7 @@
 <?php
 namespace crudP08\Iterateurs;
 
+use crudP08\Entites\EntiteP08_Episodes;
 use crudP08\MyPDO;
 use \Iterator;
 use \Countable;
@@ -39,6 +40,7 @@ class IterateurP08_Episodes implements Iterator, Countable
    */
   public function count(): int
   {
+    $this->myPDO->setIdTable("idEpisode");
     return $this->myPDO->count();
   }
 
@@ -68,6 +70,8 @@ class IterateurP08_Episodes implements Iterator, Countable
   public function next()
   {
     $this->idEpisode = $this->idEpisode + 1;
+    if(!($this->current() instanceof EntiteP08_Episodes) && $this->valid())
+      return $this->idEpisode = $this->myPDO->getIdSuivant($this->idEpisode);
   }
 
   /**
@@ -86,5 +90,14 @@ class IterateurP08_Episodes implements Iterator, Countable
   public function valid(): bool
   {
     return $this->idEpisode > 0 && $this->idEpisode <= $this->count();
+  }
+
+  /**
+   * 
+   * @return int
+   */
+  public function nbInstances(): int
+  {
+    return $this->myPDO->getNbInstances();
   }
 }

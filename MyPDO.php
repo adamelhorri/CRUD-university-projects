@@ -65,9 +65,18 @@ class MyPDO
    */
   private PDOStatement $pdos_select_fk;
   /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_nb_instances;
+  /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_id_suivant;
+  /**
    * @var string
    */
   private string $nomTable;
+  private string $idTable;
 
 
   /**
@@ -324,12 +333,12 @@ class MyPDO
   }
 
   /**
-   * préparation de la requête SELECT COUNT(*) FROM Serie
+   * préparation de la requête SELECT Max(id) FROM Serie
    * instantiation de self::$_pdos_count
    */
   private function initPDOS_count()
   {
-    $this->pdos_count = $this->pdo->prepare('SELECT COUNT(*) FROM ' . $this->nomTable);
+    $this->pdos_count = $this->pdo->prepare("SELECT MAX($this->idTable) FROM " . $this->nomTable);
   }
 
   /**
@@ -343,10 +352,35 @@ class MyPDO
     return $this->getPdosCount()->fetch()[0];
   }
 
-
   /**
-   * @return PDO
+   * préparation de la requête SELECT Max(id) FROM Serie
+   * instantiation de self::$_pdos_count
    */
+  private function initPDOS_nb_instances()
+  {
+    $this->pdos_nb_instances = $this->pdo->prepare("SELECT COUNT(*) FROM " . $this->nomTable);
+  }
+
+  public function getNbInstances(): int
+  {
+    if (!isset($this->pdos_nb_instances))
+      $this->initPDOS_nb_instances();
+    $this->getPdosNbInstances()->execute();
+    return $this->getPdosNbInstances()->fetch()[0];
+  }
+
+  private function initPDOS_id_suivant(int $id)
+  {
+    $this->pdos_id_suivant = $this->pdo->prepare("SELECT " . $this->idTable . " FROM " . $this->nomTable . " WHERE " . $this->idTable . " > " . $id . " ORDER BY " . $this->idTable . " limit 1");
+  }
+
+  public function getIdSuivant(int $id): int
+  {
+    $this->initPDOS_id_suivant($id);
+    $this->getPdosIdSuivant()->execute();
+    return $this->getPdosIdSuivant()->fetch()[0];
+  }
+
   public function getPdo(): PDO
   {
     return $this->pdo;
@@ -416,6 +450,17 @@ class MyPDO
   {
     $this->nomTable = $nomTable;
   }
+  
+  /**
+   * setNomTable
+   *
+   * @param string $nomTable
+   * @return void
+   */
+  public function setIdTable(string $idTable): void
+  {
+    $this->idTable = $idTable;
+  }
 
   /**
    * @return PDOStatement
@@ -447,5 +492,21 @@ class MyPDO
   public function getPdosSelectFK(): PDOStatement
   {
     return $this->pdos_select_fk;
+  }
+
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosNbInstances(): PDOStatement
+  {
+    return $this->pdos_nb_instances;
+  }
+
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosIdSuivant(): PDOStatement
+  {
+    return $this->pdos_id_suivant;
   }
 }

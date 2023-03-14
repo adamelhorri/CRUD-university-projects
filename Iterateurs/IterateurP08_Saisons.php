@@ -1,6 +1,7 @@
 <?php
 namespace crudP08\Iterateurs;
 
+use crudP08\Entites\EntiteP08_Saisons;
 use crudP08\MyPDO;
 use \Iterator;
 use \Countable;
@@ -39,6 +40,7 @@ class IterateurP08_Saisons implements Iterator, Countable
    */
   public function count(): int
   {
+    $this->myPDO->setIdTable("idSaison");
     return $this->myPDO->count();
   }
 
@@ -68,6 +70,8 @@ class IterateurP08_Saisons implements Iterator, Countable
   public function next()
   {
     $this->idSaison = $this->idSaison + 1;
+    if(!($this->current() instanceof EntiteP08_Saisons) && $this->valid())
+      return $this->idSaison = $this->myPDO->getIdSuivant($this->idSaison);
   }
 
   /**
@@ -86,5 +90,14 @@ class IterateurP08_Saisons implements Iterator, Countable
   public function valid(): bool
   {
     return $this->idSaison > 0 && $this->idSaison <= $this->count();
+  }
+
+  /**
+   * 
+   * @return int
+   */
+  public function nbInstances(): int
+  {
+    return $this->myPDO->getNbInstances();
   }
 }

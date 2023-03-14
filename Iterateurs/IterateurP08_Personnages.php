@@ -1,6 +1,7 @@
 <?php
 namespace crudP08\Iterateurs;
 
+use crudP08\Entites\EntiteP08_Personnages;
 use crudP08\MyPDO;
 use \Iterator;
 use \Countable;
@@ -39,6 +40,7 @@ class IterateurP08_Personnages implements Iterator, Countable
    */
   public function count(): int
   {
+    $this->myPDO->setIdTable("idPersonne");
     return $this->myPDO->count();
   }
 
@@ -68,6 +70,8 @@ class IterateurP08_Personnages implements Iterator, Countable
   public function next()
   {
     $this->idPersonne = $this->idPersonne + 1;
+    if(!($this->current() instanceof EntiteP08_Personnages) && $this->valid())
+      return $this->idPersonne = $this->myPDO->getIdSuivant($this->idPersonne);
   }
 
   /**
@@ -86,5 +90,14 @@ class IterateurP08_Personnages implements Iterator, Countable
   public function valid(): bool
   {
     return $this->idPersonne > 0 && $this->idPersonne <= $this->count();
+  }
+
+  /**
+   * 
+   * @return int
+   */
+  public function nbInstances(): int
+  {
+    return $this->myPDO->getNbInstances();
   }
 }

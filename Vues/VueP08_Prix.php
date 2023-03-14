@@ -48,7 +48,7 @@ class VueP08_Prix extends VueEntite
    * @param array $tabEntities
    * @return string
    */
-  public function getAllEntities(array $tabEntities): string
+  public function getAllEntities(array $tabEntities, string $pages): string
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
@@ -72,6 +72,7 @@ class VueP08_Prix extends VueEntite
       }
     }
     $ch .= '</ul>';
+    $ch .= $pages;
     return $ch . $this->getFinHTML();
   }
 }

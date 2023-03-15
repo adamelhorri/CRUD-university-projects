@@ -73,6 +73,22 @@ class MyPDO
    */
   private PDOStatement $pdos_id_suivant;
   /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_select_assoc;
+  /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_form_assoc;
+  /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_delete_assoc;
+  /**
+   * @var PDOStatement
+   */
+  private PDOStatement $pdos_ajouter_assoc;
+  /**
    * @var string
    */
   private string $nomTable;
@@ -381,6 +397,92 @@ class MyPDO
     return $this->getPdosIdSuivant()->fetch()[0];
   }
 
+  private function initPDOS_select_assoc(int $idSerie, string $table)
+  {
+    $tabAssoc = "";
+    if($table == "P08_Etre")
+      $tabAssoc = "P08_Genres";
+    if($table == "P08_Remporter")
+      $tabAssoc = "P08_Prix";
+    if($table == "P08_Role")
+      $tabAssoc = "P08_Personnes";
+    $this->pdos_select_assoc = $this->pdo->prepare("SELECT * FROM " . $table . " NATURAL JOIN " . $tabAssoc . " WHERE idSerie = " . $idSerie);
+  }
+
+  public function getAssoc(int $idSerie, string $table): array
+  {
+    $this->initPDOS_select_assoc($idSerie, $table);
+    $this->getPdosSelectAssoc()->execute();
+    return $this->getPdosSelectAssoc()->fetchAll();
+  }
+
+  private function initPDOS_form_assoc(int $idSerie, string $table)
+  {
+    $tabAssoc = "";
+    $id = "";
+    if($table == "P08_Etre"){
+      $tabAssoc = "P08_Genres";
+      $id = "idGenre";
+    }
+    if($table == "P08_Remporter"){
+      $tabAssoc = "P08_Prix";
+      $id = "idPrix";
+    }
+    if($table == "P08_Role"){
+      $tabAssoc = "P08_Personnes";
+      $id = "idPersonne";
+    }
+    $this->pdos_form_assoc = $this->pdo->prepare("SELECT * FROM " . $tabAssoc . " WHERE " . $id . " NOT IN (SELECT " . $id . " FROM " . $table . " WHERE idSerie = " . $idSerie . ")");
+  }
+
+  public function getFormAssoc(int $idSerie, string $table): array
+  {
+    $this->initPDOS_form_assoc($idSerie, $table);
+    $this->getPdosFormAssoc()->execute();
+    return $this->getPdosFormAssoc()->fetchAll();
+  }
+
+  private function initPDOS_delete_assoc($where)
+  {
+    $this->pdos_delete_assoc = $this->pdo->prepare("DELETE FROM " . $this->nomTable . " WHERE" . $where);
+  }
+
+  public function deleteAssoc(array $assoc)
+  {
+    $where = "";
+    $id = "";
+    if($this->nomTable == "P08_Etre")
+      $id = "idGenre";
+    if($this->nomTable == "P08_Remporter")
+      $id = "idPrix";
+    if($this->nomTable == "P08_Role")
+      $id = "idPersonne";
+    foreach($assoc as $key => $value){
+      if($key == "id")
+        $where .= 'AND ' . $id . '=' . $value . ' ';
+      else 
+        $where .= 'AND ' . ($key == '0' ? 'idSerie' : $key) . '=' . $value . ' ';
+    }
+    $where = substr($where, 3);
+    $this->initPDOS_delete_assoc($where);
+    $this->getPdosDeleteAssoc()->execute();
+  }
+
+  private function initPDOS_ajouter_assoc($values)
+  {
+    $this->pdos_ajouter_assoc = $this->pdo->prepare("INSERT INTO " . $this->nomTable . " VALUES(" . $values. ")");
+  }
+
+  public function ajouterAssoc(array $assoc)
+  {
+    $values = "";
+    foreach($assoc as $key => $value)
+        $values .= ", $value";
+    $values = substr($values, 2);
+    $this->initPDOS_ajouter_assoc($values);
+    $this->getPdosAjouterAssoc()->execute();
+  }
+
   public function getPdo(): PDO
   {
     return $this->pdo;
@@ -508,5 +610,37 @@ class MyPDO
   public function getPdosIdSuivant(): PDOStatement
   {
     return $this->pdos_id_suivant;
+  }
+
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosSelectAssoc(): PDOStatement
+  {
+    return $this->pdos_select_assoc;
+  }
+
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosFormAssoc(): PDOStatement
+  {
+    return $this->pdos_form_assoc;
+  }
+
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosDeleteAssoc(): PDOStatement
+  {
+    return $this->pdos_delete_assoc;
+  }
+
+  /**
+   * @return PDOStatement
+   */
+  public function getPdosAjouterAssoc(): PDOStatement
+  {
+    return $this->pdos_ajouter_assoc;
   }
 }

@@ -12,9 +12,8 @@ require_once("Vues/VueP08_Genres.php");
 require_once("Vues/VueP08_Episodes.php");
 require_once("Vues/VueP08_Saisons.php");
 require_once("Vues/VueP08_Personnages.php");
-// require_once("Vues/VueP08_Etre.php");
-// require_once("Vues/VueP08_Role.php");
-// require_once("Vues/VueP08_Remporter.php");
+require_once("Vues/VueAssociationsP08_Serie.php");
+
 require_once("Entites/EntiteP08_Series.php");
 require_once("Entites/EntiteP08_Personnes.php");
 require_once("Entites/EntiteP08_Prix.php");
@@ -22,9 +21,6 @@ require_once("Entites/EntiteP08_Genres.php");
 require_once("Entites/EntiteP08_Episodes.php");
 require_once("Entites/EntiteP08_Saisons.php");
 require_once("Entites/EntiteP08_Personnages.php");
-// require_once("Entites/EntiteP08_Etre.php");
-// require_once("Entites/EntiteP08_Role.php");
-// require_once("Entites/EntiteP08_Remporter.php");
 
 require_once("Iterateurs/IterateurP08_Series.php");
 require_once("Iterateurs/IterateurP08_Personnes.php");
@@ -61,6 +57,7 @@ function getListeTables(): string
     <option value='P08_Personnages'>Personnages</option>
     <option value='P08_Genres'>Genres</option>
     <option value='P08_Prix'>Prix</option>
+    <option value='AssociationSerie'>Associations série</option>
   </select>
   <button type='submit'>Sélectionner la table</button>
   </form>
@@ -86,6 +83,18 @@ switch ($_GET['action']) {
   case 'selectionnerTable':
     if (@$_GET['table_name'] == '') {
       $_SESSION['état'] = 'Accueil';
+      break;
+    }
+    if (@$_GET['table_name'] == 'AssociationSerie') {
+      if (isset($_GET['Association']))
+        $_SESSION['table_name'] = $_GET['Association'];
+      else
+        $_SESSION['table_name'] = 'P08_Etre';
+      if (isset($_GET['idSerie']))
+        $_SESSION['cle'] = $_GET['idSerie'];
+      else
+        $_SESSION['cle'] = 1;
+      $_SESSION['état'] = 'afficherAssociation';
       break;
     }
     $myPDO->setNomTable($_GET['table_name']);
@@ -182,7 +191,7 @@ switch ($_GET['action']) {
     $classeEntite = new ReflectionClass("crudP08\Entites\Entite" . ucfirst($_SESSION['table_name']));
     $colNames = $classeEntite->getStaticPropertyValue("COLNAMES");
     $colTypes = $classeEntite->getStaticPropertyValue("COLTYPES");
-    $paramInsert = array_diff_key($_GET, array('action' => 'insérerEntite'));
+    $paramInsert = array_diff_key($_GET, array('action' => 'sauverEntite'));
     try {
       $myPDO->update($paramInsert);
       $cloNameId = $classeEntite->getStaticPropertyValue(("PK"))[0];
@@ -192,6 +201,22 @@ switch ($_GET['action']) {
       $_SESSION['état'] = 'afficheTable';
     }
     $_SESSION['état'] = 'afficheTable';
+    break;
+  case "ajouterAssoc":
+    $myPDO->setNomTable($_SESSION['table_name']);
+    $keyName = array_diff_key($_GET, array('action' => 'ajouterAssoc'));
+    $last = array_pop($keyName);
+    array_unshift($keyName, $last);
+    $myPDO->ajouterAssoc($keyName);
+    $_SESSION['état'] = 'afficherAssociation';
+    break;
+  case "supprimerAssoc":
+    $myPDO->setNomTable($_SESSION['table_name']);
+    $keyName = array_diff_key($_GET, array('action' => 'ajouterAssoc'));
+    $last = array_pop($keyName);
+    array_unshift($keyName, $last);
+    $myPDO->deleteAssoc($keyName);
+    $_SESSION['état'] = 'afficherAssociation';
     break;
   default:
     $message .= "<p>Action " . $_GET['action'] . " non implémentée.</p>\n";
@@ -213,7 +238,7 @@ switch ($_SESSION['état']) {
     // echo "<p>**** " . count($_SESSION['collection']) . " ****</p>";
     // echo "<p>**** " . $_SESSION['debut'] . " -- " . $_SESSION['taillePage'] + $_SESSION['debut'] - 1 . " ****</p>";
     $iterateur = new ReflectionClass("crudP08\Iterateurs\Iterateur" . ucfirst($_SESSION['table_name']));
-    $instance = $iterateur->newInstance();//& $_SESSION['collection'];
+    $instance = $iterateur->newInstance();
 
     $pageCourante = new LimitIterator($instance, $_SESSION['debut'] - 1, $_SESSION['taillePage']);
 
@@ -248,6 +273,41 @@ switch ($_SESSION['état']) {
       $contenu .= $vue->getHTML4Entity(null, $entite);
     break;
   case 'formulaireTable':
+    break;
+  case 'afficherAssociation':
+    $classeVue = new ReflectionClass("crudP08\Vues\VueAssociationsP08_Serie");
+    $vue = $classeVue->newInstance();
+    $myPDO->setNomTable("P08_Series");
+    $series = $myPDO->getAll();
+    $selectSerie = "<form action='' method='GET'>
+    <input type='hidden' name='action' value='selectionnerTable'>
+    <input type='hidden' name='table_name' value='AssociationSerie'>
+    <input type='hidden' name='Association' value='" . $_SESSION['table_name'] . "'>
+    <select name='idSerie' onchange='this.form.submit()'>";
+    foreach ($series as $serie)
+      $selectSerie .= '<option value="' . $serie->getIdSerie() . '" ' . ($serie->getIdSerie() == $_SESSION['cle'] ? "selected" : "") . '>' . $serie->getNomSerie() . '</option>';
+    $selectSerie .= "</select></form>";
+    $assocTab = $myPDO->getAssoc($_SESSION['cle'], $_SESSION['table_name']);
+    $assoc = ''; 
+    foreach ($assocTab as $ligne) {
+      if ($_SESSION['table_name'] == 'P08_Remporter')
+        $assoc .= $ligne[3] . ' ' . $ligne[4] . ' ' . $ligne[2] . '<a href="controleur.php?action=supprimerAssoc&id=' . $ligne[0] . '&idSerie=' . (isset($_GET['idSerie']) ? $_GET['idSerie'] : 1) . '">Supprimer</a><br>';
+      else
+        $assoc .= $ligne[2] . '<a href="controleur.php?action=supprimerAssoc&id=' . $ligne[0] . '&idSerie=' . (isset($_GET['idSerie']) ? $_GET['idSerie'] : 1) . '">Supprimer</a><br>';
+    }
+    $formTab = $myPDO->getFormAssoc($_SESSION['cle'], $_SESSION['table_name']);
+    $ajouter = '<select name="id">';
+    foreach($formTab as $ligne){
+      if ($_SESSION['table_name'] == 'P08_Remporter')
+        $ajouter .= '<option value=' . $ligne[0] . '>' . $ligne[1] . ' (' . $ligne[2] . ')</option>';
+      else
+        $ajouter .= '<option value=' . $ligne[0] . '>' . $ligne[1] . '</option>';
+    }
+    $ajouter .= '</select>';
+    if ($_SESSION['table_name'] == 'P08_Remporter')
+      $ajouter .= '<input type="number" name="Annee">';
+    $ajouter .= '<input type="hidden" name="idSerie" value="' . (isset($_GET['idSerie']) ? $_GET['idSerie'] : 1) . '">';
+    $contenu .= $vue->getHTML4Association($selectSerie, substr($_SESSION['table_name'], 4), $assoc, $ajouter);
     break;
   default:
     $message .= "<p>état " . $_SESSION['état'] . " inconnu</p>\n";

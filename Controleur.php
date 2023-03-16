@@ -239,8 +239,11 @@ switch ($_SESSION['état']) {
     $urlPrev = $_SERVER['PHP_SELF'] . "?action=selectionnerTable&table_name=" . ucfirst($_SESSION['table_name']) . "&suivant=" . $decalagePrev;
     $urlNext = $_SERVER['PHP_SELF'] . "?action=selectionnerTable&table_name=" . ucfirst($_SESSION['table_name']) . "&suivant=" . $decalageNext;
     $urlLast = $_SERVER['PHP_SELF'] . "?action=selectionnerTable&table_name=" . ucfirst($_SESSION['table_name']) . "&suivant=" . $decalageLast;
-
-    $ch = "<p class='pagination'><a href='$urlFirst'><img class='rotate-180' src='./images/icon-double-arrow.svg'></a> <a href='$urlPrev'><img class='rotate-180' src='./images/icon-arrow.svg'></a><span class='vide'></span> <a href='$urlNext'><img src='./images/icon-arrow.svg'></a> <a href='$urlLast'><img classe='rotate-180' src='./images/icon-double-arrow.svg'></a></p>";
+    $ch = "";
+    if($_SESSION['table_name'] == 'P08_Series')
+      $ch .= "<p class='pagination'><a href='$urlFirst'><img class='rotate-180' src='./images/icon-double-arrow.svg'></a> <a href='$urlPrev'><img class='rotate-180' src='./images/icon-arrow.svg'></a><span class='vide'></span> <a href='$urlNext'><img src='./images/icon-arrow.svg'></a> <a href='$urlLast'><img classe='rotate-180' src='./images/icon-double-arrow.svg'></a></p>";
+    else 
+      $ch .= "<p class='pagination'><a href='$urlFirst'>First</a> <a href='$urlPrev'>Previous</a> <a href='$urlNext'>Next</a> <a href='$urlLast'>Last</a></p>";
 
     $classeVue = new ReflectionClass("crudP08\Vues\Vue" . ucfirst($_SESSION['table_name']));
     $vue = $classeVue->newInstance();

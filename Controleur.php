@@ -1,5 +1,6 @@
 <?php
 namespace crudP08;
+use crudP08\Vues\AbstractVueRelation;
 
 session_start();
 
@@ -42,28 +43,15 @@ function getListeTables(): string
 <head>
 <meta charset='UTF-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'/>
-<title>CRUD-Series-télévisées</title>
-<link rel='stylesheet' href='global.css' />
+<link rel='stylesheet' href='./css/global.css' />
+<link rel='shortcut icon' href='favicon.png' type='image/x-icon' />
+<title>Série télévisées</title>
 </head>
-<body> 
-<form action='' method='GET'>
-  <input type='hidden' name='action' value='selectionnerTable'>
-  <select name='table_name'>
-    <option disabled selected value=''>--- Sélectionnez une table ---</option>
-    <option value='P08_Series'>Séries</option>
-    <option value='P08_Saisons'>Saisons</option>
-    <option value='P08_Episodes'>Episodes</option>
-    <option value='P08_Personnes'>Personnes</option>
-    <option value='P08_Personnages'>Personnages</option>
-    <option value='P08_Genres'>Genres</option>
-    <option value='P08_Prix'>Prix</option>
-    <option value='AssociationSerie'>Associations série</option>
-  </select>
-  <button type='submit'>Sélectionner la table</button>
-  </form>
-  </body>
-  </html>
-  ";
+<body>" . AbstractVueRelation::getListe() . "
+</main>
+<script src='./js/listeTables.js'></script>
+</body>
+</html>\n";
 }
 
 // initialisation des variables $contenu et $message pour alimenter <body>
@@ -252,7 +240,7 @@ switch ($_SESSION['état']) {
     $urlNext = $_SERVER['PHP_SELF'] . "?action=selectionnerTable&table_name=" . ucfirst($_SESSION['table_name']) . "&suivant=" . $decalageNext;
     $urlLast = $_SERVER['PHP_SELF'] . "?action=selectionnerTable&table_name=" . ucfirst($_SESSION['table_name']) . "&suivant=" . $decalageLast;
 
-    $ch = "<p><a href='$urlFirst'>First</a> <a href='$urlPrev'>prev</a> <a href='$urlNext'>next</a> <a href='$urlLast'>Last</a></p>";
+    $ch = "<p class='pagination'><a href='$urlFirst'><img class='rotate-180' src='./images/icon-double-arrow.svg'></a> <a href='$urlPrev'><img class='rotate-180' src='./images/icon-arrow.svg'></a><span class='vide'></span> <a href='$urlNext'><img src='./images/icon-arrow.svg'></a> <a href='$urlLast'><img classe='rotate-180' src='./images/icon-double-arrow.svg'></a></p>";
 
     $classeVue = new ReflectionClass("crudP08\Vues\Vue" . ucfirst($_SESSION['table_name']));
     $vue = $classeVue->newInstance();
@@ -313,10 +301,6 @@ switch ($_SESSION['état']) {
     $message .= "<p>état " . $_SESSION['état'] . " inconnu</p>\n";
     $_SESSION['état'] = 'Accueil';
 }
-
-
-// ajout d'un lien vers la page d'accueil
-$contenu .= "<p><a href='index.php?action=initialiser'>Accueil</a></p>\n";
 
 echo $message;
 echo $contenu;

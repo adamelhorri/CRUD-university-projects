@@ -18,7 +18,7 @@ class VueP08_Personnages extends VueEntite
       $ch = "";
       $ch .= $this->getDebutHTML();
       $voice = $entite->getVoice() == 1 ? 'true' : 'false';
-      $ch = "<table width='700'>
+      $ch .= "<table width='700'>
               <tr>
                 <th>Id : </th>
                 <td>" . $select4FK . "</td>
@@ -41,7 +41,7 @@ class VueP08_Personnages extends VueEntite
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
-    $ch = '<h1>Les Personnages</h1>';
+    $ch .= '<h1>Les Personnages</h1>';
     $ch .= "<form action='' method='get'>
               <p>
                 Choisir un numéro : <input type='number' name='idPersonne' > 

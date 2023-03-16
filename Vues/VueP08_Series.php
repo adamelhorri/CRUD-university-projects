@@ -4,10 +4,12 @@ namespace crudP08\Vues;
 require_once("../php-crud/Entites/EntiteP08_Series.php");
 require_once("../php-crud/Entites/AbstractEntite.php");
 require_once("VueEntite.php");
+require_once("AbstractVueRelation.php");
 
 use crudP08\Entites\AbstractEntite;
 use crudP08\Entites\EntiteP08_Series;
 use crudP08\Vues\VueEntite;
+use crudP08\Vues\AbstractVueRelation;
 
 class VueP08_Series extends VueEntite
 {
@@ -23,10 +25,16 @@ class VueP08_Series extends VueEntite
     if ($entite instanceof EntiteP08_Series) {
       $ch = "";
       $ch .= $this->getDebutHTML();
-      $ch = "<table width='700'>
+      $ch .= "<link rel='stylesheet' href='./css/global.css' />";
+      $ch .= AbstractVueRelation::getListe();
+      $ch .= "<table>
               <tr>
                 <th>Id : </th>
                 <td>" . $entite->getIdSerie() . "</td>
+              </tr>
+              <tr>
+                <th>Poster : </th>
+                <td><img src='" . $entite->getImageSerie() . "'></td>
               </tr>
               <tr>
                 <th>Nom : </th>
@@ -76,25 +84,24 @@ class VueP08_Series extends VueEntite
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
-    $ch = '<h1>Les Séries</h1>';
-    $ch .= "<form action='' method='get'>
-              <p>
-                Choisir un numéro : <input type='number' name='idSerie' > 
-                <button name='action' value='afficherEntite'>Afficher</button>
-              </p>
-            </form>";
-    $ch .= '<p><a href="controleur.php?action=creerEntite">Créer une nouvelle série</a></p>';
-    $ch .= '<ul>';
+    $ch .= "<link rel='stylesheet' href='./css/global.css' />";
+    $ch .= AbstractVueRelation::getListe();
+    $ch .= '<h1>Les Séries</h1>';
+    $ch .= '<p><a class="ajouter" href="controleur.php?action=creerEntite">Créer une nouvelle série <img src="./images/icon-add.svg" class="white"></a></p>';
+    $ch .= '<ul class="affichage">';
     foreach ($tabEntities as $serie) {
       if ($serie instanceof EntiteP08_Series) {
-        $ch .= '<li>' . $serie->getIdSerie() . ' ';
-        $ch .= $serie->getNomSerie() . ' ';
-        $ch .= $serie->getDebutSerie() . ' ';
-        $ch .= $serie->getFinSerie() . ' ';
-        $ch .= $serie->getNoteSerie() . ' ';
-        $ch .= '<a href="controleur.php?action=modifierEntite&idSerie=' . $serie->getIdSerie() . '">Modifier</a> ';
-        $ch .= '<a href="controleur.php?action=supprimerEntite&idSerie=' . $serie->getIdSerie() . '">Supprimer</a> ';
-        $ch .= '</li>';
+        $ch .= '<li class="card-image" style="background-image: url(' . $serie->getImageSerie() . ')">
+          <a href="'.$_SERVER['PHP_SELF'].'?action=afficherEntite&idSerie=' . $serie->getIdSerie() . '"></a>
+          <div class="info">
+            <p class="nom">' . $serie->getNomSerie() . '</p>
+            <p class="note">' . $serie->getNoteSerie() . '</p>
+          </div>
+          <div class="actions">
+            <a href="controleur.php?action=modifierEntite&idSerie=' . $serie->getIdSerie() . '"><img src="./images/icon-edit.svg"></a>
+            <a href="controleur.php?action=supprimerEntite&idSerie=' . $serie->getIdSerie() . '"><img src="./images/icon-delete.svg"></a>
+          </div>
+        </li>';
       }
     }
     $ch .= '</ul>';

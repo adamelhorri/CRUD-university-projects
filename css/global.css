@@ -1,0 +1,230 @@
+@import url("./variables.css");
+
+html,
+body,
+main {
+  height: 100%;
+}
+main{
+  width: 100%;
+}
+ul {
+  list-style-type: none;
+}
+img {
+  width: 100%;
+  vertical-align: bottom;
+}
+button {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  outline: none;
+}
+body {
+  background-color: var(--clr-neutral-Very-dark-blue);
+  font-family: var(--ff-primary);
+  position: relative;
+  min-width: 275px;
+}
+.side-bar {
+  position: fixed;
+  background-color: var(--clr-neutral-Dark-blue);
+  width: fit-content;
+  height: 100%;
+  padding: 2rem 2rem;
+  z-index: 999;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.5);
+}
+#logo {
+  display: block;
+  width: 65px;
+  height: auto;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+}
+.accueil {
+  position: absolute;
+  bottom: 2rem;
+}
+.side-bar a {
+  font-size: var(--ff-secondary);
+  color: var(--clr-white);
+  font-size: 1.1rem;
+}
+.table-link:not(:last-of-type) {
+  margin-bottom: 8px;
+}
+.table-link {
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  padding: 3px;
+  overflow: hidden;
+}
+.table-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 35px;
+  transition: width 0.3s ease-in-out;
+}
+.table-link a{
+  position: relative;
+  z-index: 99;
+}
+.arrow{
+  filter: brightness(0) invert(1);
+  width: 35px;
+  position: absolute;
+  top: 10px;
+  right: -45px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+.translate-100{
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: initial;
+}
+.rotate-180{
+  transform: rotateZ(180deg);
+  transition: transform 0.3s ease-in-out;
+}
+main{
+  padding: 3rem 1rem;
+}
+h1{
+  font-family: var(--ff-secondary);
+  color: var(--clr-neutral-Pale-Blue);
+  margin-bottom: 0.5rem;
+}
+.white{
+  width: 35px;
+  height: auto;
+}
+.ajouter{
+  color: var(--clr-white);
+  font-size: 1.2rem;
+}
+.affichage{
+  margin-top: 1.5rem;
+  display: grid;
+  grid-gap: 2rem;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+}
+.card-image{
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 25px;
+}
+.actions{
+  top: 10px;
+  right: 10px;
+}
+.actions img{
+  width: 35px;
+}
+.info{
+  bottom: 10px;
+  left: 10px;
+}
+.nom{
+  color: var(--clr-white);
+  font-size: 2rem;
+  font-weight: 500;
+}
+.note{
+  color: var(--clr-white);
+  font-size: 1.2rem;
+}
+.card-image::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+.info, .actions{
+  position: absolute;
+  z-index: 2;
+}
+.card-image > a{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.pagination{
+  display: block;
+  position: relative;
+  z-index: 9;
+  width: fit-content;
+  margin-inline: auto;
+  margin-top: 1rem;
+  padding-bottom: 3rem;
+}
+.pagination img{
+  width: 45px;
+  height: 45px;
+}
+table, tr{
+  width: 100%;
+  max-width: 1024px;
+}
+th{
+  min-width: 150px;
+  text-align: left;
+  vertical-align: top;
+  color: var(--clr-neutral-Pale-Blue);
+  font-size: 1.2rem;
+}
+td{
+  font-size: 1rem;
+  text-align: justify;
+  color: var(--clr-white);
+}
+tr img{
+  width: min(300px, 100%);
+}
+@media (hover: hover) {
+  .table-link:hover::before {
+    width: 100%;
+    transition: width 0.3s ease-in-out;
+  }
+  .orange:hover {
+    border: 1px solid var(--clr-primary-Light-orange);
+  }
+  .orange::before {
+    background-color: var(--clr-primary-Light-orange);
+  }
+  .blue:hover {
+    border: 1px solid var(--clr-primary-Soft-blue);
+  }
+  .blue::before {
+    background-color: var(--clr-primary-Soft-blue);
+  }
+  .red:hover {
+    border: 1px solid var(--clr-primary-Light-red);
+  }
+  .red::before {
+    background-color: var(--clr-primary-Light-red);
+  }
+  .green:hover {
+    border: 1px solid var(--clr-primary-Lime-green);
+  }
+  .green::before {
+    background-color: var(--clr-primary-Lime-green);
+  }
+}

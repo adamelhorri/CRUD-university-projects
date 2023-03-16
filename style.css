@@ -237,10 +237,11 @@ header .container {
   max-width: 100%;
   display: block;
   margin-inline: auto;
-  color: var(--clr-neutral-Desaturated-blue);
   padding: 1.5rem 3rem;
   border-radius: 500px;
-  border: 3px solid var(--clr-neutral-Desaturated-blue);
+  background-color: var(--clr-neutral-Desaturated-blue); 
+  color: var(--clr-white);
+  border: 3px solid transparent;
   font-size: 1.2rem;
   font-weight: 500;
   transition: all 0.3s ease-in-out;
@@ -255,7 +256,7 @@ footer p {
   text-align: center;
 }
 footer img {
-  filter: brightness(0) invert(1);;
+  filter: brightness(0) invert(1);
   width: 24px;
   height: auto;
   vertical-align: bottom;
@@ -270,9 +271,9 @@ footer img {
     transition: all 0.3s ease-in-out;
   }
   .db a:hover {
-    color: var(--clr-white);
-    border-color: transparent;
-    background-color: var(--clr-neutral-Desaturated-blue); 
+    border: 3px solid var(--clr-neutral-Desaturated-blue);
+    background-color: var(--clr-white);
+    color: var(--clr-neutral-Desaturated-blue);
     transition: all 0.3s ease-in-out;
   }
 }

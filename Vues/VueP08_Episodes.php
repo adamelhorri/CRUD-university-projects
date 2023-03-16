@@ -22,7 +22,7 @@ class VueP08_Episodes extends VueEntite
     if ($entite instanceof EntiteP08_Episodes) {
       $ch = "";
       $ch .= $this->getDebutHTML();
-      $ch = "<table width='700'>
+      $ch .= "<table width='700'>
               <tr>
                 <th>Id : </th>
                 <td>" . $entite->getIdEpisode() . "</td>
@@ -76,7 +76,7 @@ class VueP08_Episodes extends VueEntite
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
-    $ch = '<h1>Les Episodes</h1>';
+    $ch .= '<h1>Les Episodes</h1>';
     $ch .= "<form action='' method='get'>
               <p>
                 Choisir un numéro : <input type='number' name='idEpisode' > 

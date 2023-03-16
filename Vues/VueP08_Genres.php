@@ -23,7 +23,7 @@ class VueP08_Genres extends VueEntite
     if ($entite instanceof EntiteP08_Genres) {
       $ch = "";
       $ch .= $this->getDebutHTML();
-      $ch = "<table width='700'>
+      $ch .= "<table width='700'>
               <tr>
                 <th>Id : </th>
                 <td>" . $entite->getIdGenre() . "</td>
@@ -49,7 +49,7 @@ class VueP08_Genres extends VueEntite
   {
     $ch = "";
     $ch .= $this->getDebutHTML();
-    $ch = '<h1>Les Genres</h1>';
+    $ch .= '<h1>Les Genres</h1>';
     $ch .= "<form action='' method='get'>
               <p>
                 Choisir un numéro : <input type='number' name='idGenre' > 

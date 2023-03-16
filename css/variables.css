@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700&family=Poppins:wght@400;500;700&display=swap');
+
+:root{
+  --clr-primary-Blue: hsl(246, 80%, 60%);
+  --clr-primary-Light-orange: hsl(15, 100%, 70%);
+  --clr-primary-Soft-blue: hsl(195, 74%, 62%);
+  --clr-primary-Light-red: hsl(348, 100%, 68%);
+  --clr-primary-Lime-green: hsl(145, 58%, 55%);
+  --clr-primary-Violet: hsl(264, 64%, 52%);
+  --clr-primary-Soft-orange: hsl(43, 84%, 65%);
+  
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-Light-gray: hsl(212, 45%, 89%);
+
+  --clr-neutral-Very-dark-blue: hsl(226, 43%, 10%);
+  --clr-neutral-Dark-blue: hsl(235, 46%, 20%);
+  --clr-neutral-Desaturated-blue: hsl(235, 45%, 61%);
+  --clr-neutral-Pale-Blue: hsl(236, 100%, 87%);
+  
+  --ff-primary: 'Poppins', sans-serif;
+  --ff-secondary: 'Alegreya Sans', sans-serif;
+}
+
+*, *::after, *::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

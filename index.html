@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <title>Série télévisées</title>
+  </head>
+  <body>
+    <main>
+      <header id="accueil">
+        <div class="container">
+          <img src="./images/clip.png" alt="logo" id="logo" />
+          <button class="toggle-button hidden-desktop" id="toggle-button">
+            <img src="./images/icon-hamburger.svg" />
+            <img src="./images/icon-close.svg" class="hidden-op" />
+          </button>
+          <nav class="menu hidden-height" id="menu">
+            <ul>
+              <li><a href="#accueil">Accueil</a></li>
+              <li><a href="#about">A propos</a></li>
+              <li><a href="#tables">Tables</a></li>
+              <li><a href="#db">Base de données</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <section id="slider">
+        <div class="black-overlay"></div>
+        <button id="next">
+          <img src="./images/icon-next.svg" alt="next" />
+        </button>
+        <button id="previous">
+          <img src="./images/icon-prev.svg" alt="previous" />
+        </button>
+        <ul id="slider-items"></ul>
+      </section>
+    </main>
+    <section class="about" id="about">
+      <h1>A propos</h1>
+      <div class="desc">
+        <div class="container a-propos">
+          Bienvenue sur notre site dédié aux séries TV ! Nous avons créé une
+          base de données qui permet de stocker et d'organiser toutes les
+          informations relatives aux séries télévisées : les titres des séries,
+          les saisons et les épisodes, les noms des acteurs et personnages, les
+          prix remportés, les genres et même les spin-offs.<br />
+          Grâce à notre base de données, vous pourrez rechercher facilement des
+          informations sur votre série TV préférée et découvrir de nouvelles
+          séries à regarder. Que vous soyez un fan de séries TV ou un simple
+          curieux, vous trouverez sur notre site des informations utiles et
+          divertissantes sur les séries TV les plus populaires. N'hésitez pas à
+          explorer notre base de données et à nous faire part de vos
+          commentaires et suggestions pour améliorer notre site.
+        </div>
+      </div>
+    </section>
+    <section class="tables" id="tables">
+      <div class="container">
+        <h1>Tables</h1>
+        <ul class="tables-items">
+          <li class="table-item">
+            <h6>Séries</h6>
+            <p>
+              Informations générales sur les séries TV, telles que leur nom,
+              leur langue, leur site officiel, leur note et leur description,
+              ainsi que des informations sur leur spin-off
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Saisons</h6>
+            <p>
+              Saisons des différentes séries, incluant l'identifiant de la série
+              à laquelle elles appartiennent
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Episodes</h6>
+            <p>
+              Episodes de chaque saison, incluant l'identifiant de la saison à
+              laquelle ils appartiennent
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Personnes</h6>
+            <p>
+              Personnes impliquées dans les séries (Equipes de réalisation et
+              acteurs)
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Personnages</h6>
+            <p>
+              Personnages dans les séries, elle est également liée à la table
+              Personnes pour stocker les informations sur les acteurs qui jouent
+              ces personnages
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Genres</h6>
+            <p>
+              Contient les genres associés aux séries. Cette table est utilisée
+              pour catégoriser les séries en fonction de leur genre et pour
+              permettre aux utilisateurs de rechercher des séries en fonction de
+              leurs préférences de genre
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Prix</h6>
+            <p>Prix ou récompenses décernés aux séries</p>
+          </li>
+          <li class="table-item">
+            <h6>Etre</h6>
+            <p>
+              Association qui permet de spécifier les genres associés à chaque
+              série
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Role</h6>
+            <p>
+              Permet de stocker les rôles joués par les personnes dans les
+              différentes séries.
+            </p>
+          </li>
+          <li class="table-item">
+            <h6>Remporter</h6>
+            <p>
+              Contient les informations sur les séries qui ont remporté des
+              prix, avec l'année à laquelle le prix a été remporté.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <sction class="db" id="db">
+      <div class="container">
+        <h1>Base de données</h1>
+        <a href="./Controleur.php">Accéder à la base de données</a>
+      </div>
+    </sction>
+    <footer>
+      <div class="container">
+        <p>
+          <a href="https://www-apps.univ-lehavre.fr/forge/fm223902/php-crud"
+            ><img src="./images/icon-gitlab.svg" alt=""
+          /></a>
+          <span class="separator">|</span>
+          Copyright 2023 <img src="./images/icon-copyright.svg" alt="" />
+          <span class="separator">|</span>
+          FARAJI Mohammed, DOUBLI Akram, EL KHADIRI Reda, EL HORRI Adam
+        </p>
+      </div>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>

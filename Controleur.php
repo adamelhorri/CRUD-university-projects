@@ -241,7 +241,7 @@ switch ($_SESSION['état']) {
     $instance = $iterateur->newInstance();
 
     $pageCourante = new LimitIterator($instance, $_SESSION['debut'] - 1, $_SESSION['taillePage']);
-
+    
     $decalageFirst = 0;
     $decalageLast = (int) (($instance->nbInstances()) / $_SESSION['taillePage']);
     $decalagePrev = (isset($_GET['suivant'])) && $_GET['suivant'] > 0 ? $_GET['suivant'] - 1 : 0;

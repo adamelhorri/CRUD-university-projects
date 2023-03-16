@@ -1,0 +1,342 @@
+@import url("./css/variables.css");
+
+html,
+body {
+  height: 100%;
+}
+.container {
+  max-width: 1250px;
+  margin-inline: auto;
+  padding-inline: 1.5em;
+}
+body {
+  font-family: var(--ff-primary);
+  min-width: 280px;
+  scroll-behavior: smooth;
+}
+ul {
+  list-style-type: none;
+}
+header {
+  padding-block: 0.5em;
+  height: 72px;
+}
+img {
+  width: 100%;
+}
+button {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  outline: none;
+}
+.hidden-op {
+  opacity: 0;
+}
+.no-scroll {
+  overflow: hidden;
+  touch-action: none;
+  height: 100vh;
+}
+header .container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#logo {
+  width: 45px;
+  height: auto;
+}
+.toggle-button {
+  width: 40px;
+  position: relative;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.toggle-button > img {
+  transition: opacity 0.3s ease-in-out;
+}
+.toggle-button > img:last-of-type {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#menu {
+  position: absolute;
+  top: 69px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr-neutral-Very-dark-blue);
+  padding-inline: 1.5em;
+  transition: height 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 100;
+  min-width: 280px;
+}
+#menu ul {
+  padding-top: 1em;
+}
+#menu li {
+  margin-block: 1.75em;
+  text-align: center;
+}
+#menu li a {
+  color: var(--clr-white);
+  font-family: var(--ff-secondary);
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  vertical-align: bottom;
+  font-weight: 500;
+}
+.hidden-height {
+  height: 0 !important;
+  transition: height 0.3s ease-in-out;
+}
+#slider {
+  position: relative;
+  height: calc(100vh - 72px);
+  overflow: hidden;
+}
+.black-overlay {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 98;
+  width: 100%;
+  height: calc(100vh - 72px);
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.6),
+    transparent,
+    rgba(0, 0, 0, 0.6)
+  );
+}
+#slider-items {
+  position: relative;
+}
+.slider-item {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+.slider-item > img {
+  height: calc(100vh - 72px);
+  object-fit: cover;
+}
+.show-info {
+  position: absolute;
+  z-index: 99;
+  transform: translateY(-115%);
+  padding-inline: 1.5rem;
+}
+.show-info > * {
+  color: var(--clr-Light-gray);
+  font-family: var(--ff-primary);
+}
+.show-name {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+.show-genres {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.show-rating {
+  font-size: 18px;
+}
+#previous,
+#next {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  z-index: 99;
+  transform: translateY(-50%);
+  width: 40px;
+  margin-left: 1.5rem;
+  transition: transform 0.3s ease-in-out;
+}
+#next {
+  left: initial;
+  right: 0;
+  margin-left: 0;
+  margin-right: 1.5rem;
+}
+#previous > img,
+#next > img {
+  filter: brightness(0) invert(1);
+}
+[item-active] {
+  opacity: 1 !important;
+}
+.slide-in {
+  animation: slide-next 0.75s ease-in-out 0s 1 alternate forwards;
+}
+.reverse {
+  animation-direction: reverse;
+  animation-fill-mode: backwards;
+}
+.translate100 {
+  transform: translateX(100%);
+}
+.translate-100 {
+  transform: translateX(-100%);
+}
+.about h1,
+.tables h1,
+.db h1 {
+  color: var(--clr-neutral-Dark-blue);
+  font-family: var(--ff-secondary);
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07rem;
+  padding-block: 3rem;
+}
+.desc {
+  background-color: var(--clr-neutral-Very-dark-blue);
+  padding-block: 2rem;
+}
+.a-propos {
+  color: var(--clr-white);
+  text-align: justify;
+  font-size: 1.1rem;
+  line-height: 2rem;
+}
+.tables-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  grid-gap: 2rem;
+  justify-content: center;
+}
+.table-item {
+  width: 100%;
+}
+.table-item h6 {
+  color: var(--clr-neutral-Desaturated-blue);
+  font-family: var(--ff-secondary);
+  font-size: 1.8rem;
+  text-align: center;
+}
+.table-item p {
+  text-align: center;
+}
+.db a {
+  width: fit-content;
+  text-align: center;
+  max-width: 100%;
+  display: block;
+  margin-inline: auto;
+  color: var(--clr-neutral-Desaturated-blue);
+  padding: 1.5rem 3rem;
+  border-radius: 500px;
+  border: 3px solid var(--clr-neutral-Desaturated-blue);
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+footer{
+  padding-block: 5rem;
+  margin-top: 3rem;
+  background-color: black;
+}
+footer p {
+  color: var(--clr-white);
+  text-align: center;
+}
+footer img {
+  filter: brightness(0) invert(1);;
+  width: 24px;
+  height: auto;
+  vertical-align: bottom;
+}
+.separator{
+  margin-inline: 10px;
+}
+@media (hover: hover) {
+  #next:hover,
+  #previous:hover {
+    transform: scale(200%) translateY(-25%);
+    transition: all 0.3s ease-in-out;
+  }
+  .db a:hover {
+    color: var(--clr-white);
+    border-color: transparent;
+    background-color: var(--clr-neutral-Desaturated-blue); 
+    transition: all 0.3s ease-in-out;
+  }
+}
+@keyframes slide-next {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+@media (min-width: 585px){
+  .db a{
+    font-size: 1.5rem;
+    padding: 1.5rem 5rem;
+  }
+}
+@media (min-width: 850px) {
+  .no-scroll {
+    overflow: initial;
+    touch-action: initial;
+    height: 100vh;
+  }
+  .hidden-desktop {
+    display: none !important;
+  }
+  .hidden-height {
+    height: initial;
+  }
+  #menu {
+    position: relative;
+    height: initial !important;
+    top: initial;
+    background-color: initial;
+    padding-inline: 0;
+    overflow: initial;
+    width: initial;
+  }
+  #menu ul {
+    padding-top: 0;
+  }
+  #menu li {
+    display: inline-block;
+    text-align: center;
+    margin-block: 0;
+  }
+  #menu li a {
+    color: black;
+    font-size: 1.3rem;
+    transition: all 0.3s ease-in-out;
+  }
+  #menu li:not(:first-of-type) {
+    margin-left: 2em;
+  }
+  @media (hover: hover) {
+    #menu li a:hover {
+      color: var(--clr-neutral-Desaturated-blue);
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}
+@media (min-width: 952px) {
+  .table-item:last-of-type{
+    grid-column: 2 / 3;
+  }
+}
